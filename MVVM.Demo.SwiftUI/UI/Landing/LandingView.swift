@@ -34,6 +34,13 @@ struct LandingView: View {
             .contentShape(Rectangle())
         }
         .buttonStyle(BrightBorderedButtonStyle(color: self.pulseColor))
+        
+        Button(action: self.viewModel.colorWizard) {
+          Text("Color Wizard")
+            .frame(maxWidth: .infinity, minHeight: 54.0, idealHeight: 54.0, maxHeight: 54.0)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(BrightBorderedButtonStyle())
       }
       
       .padding([.leading, .trailing], 48.0)

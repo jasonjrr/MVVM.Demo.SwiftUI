@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9665D9552745C1D60055F1F6 /* ColorWizardCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665D9542745C1D60055F1F6 /* ColorWizardCoordinatorView.swift */; };
+		9665D9572745C1F10055F1F6 /* ColorWizardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665D9562745C1F10055F1F6 /* ColorWizardCoordinator.swift */; };
+		9665D95A2745C2540055F1F6 /* ColorWizardPageCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665D9592745C2540055F1F6 /* ColorWizardPageCoordinatorView.swift */; };
+		9665D95C2745C26F0055F1F6 /* ColorWizardPageCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665D95B2745C26F0055F1F6 /* ColorWizardPageCoordinator.swift */; };
+		9665D95F2745C2E00055F1F6 /* ColorWizardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665D95E2745C2E00055F1F6 /* ColorWizardContentView.swift */; };
+		9665D9612745C2FA0055F1F6 /* ColorWizardContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665D9602745C2FA0055F1F6 /* ColorWizardContentViewModel.swift */; };
+		9665D9632745C3410055F1F6 /* ColorWizardConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665D9622745C3410055F1F6 /* ColorWizardConfigurationViewModel.swift */; };
+		9665D9652745C3700055F1F6 /* ColorWizardConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665D9642745C3700055F1F6 /* ColorWizardConfiguration.swift */; };
+		9665D9682745C53B0055F1F6 /* ColorWizardConfiguration+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665D9672745C53B0055F1F6 /* ColorWizardConfiguration+Mock.swift */; };
 		96B4E06527432D6100EC88B3 /* MVVM_Demo_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B4E06427432D6100EC88B3 /* MVVM_Demo_SwiftUIApp.swift */; };
 		96B4E06927432D6200EC88B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96B4E06827432D6200EC88B3 /* Assets.xcassets */; };
 		96B4E06C27432D6200EC88B3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96B4E06B27432D6200EC88B3 /* Preview Assets.xcassets */; };
@@ -70,6 +79,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9665D9542745C1D60055F1F6 /* ColorWizardCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorWizardCoordinatorView.swift; sourceTree = "<group>"; };
+		9665D9562745C1F10055F1F6 /* ColorWizardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorWizardCoordinator.swift; sourceTree = "<group>"; };
+		9665D9592745C2540055F1F6 /* ColorWizardPageCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorWizardPageCoordinatorView.swift; sourceTree = "<group>"; };
+		9665D95B2745C26F0055F1F6 /* ColorWizardPageCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorWizardPageCoordinator.swift; sourceTree = "<group>"; };
+		9665D95E2745C2E00055F1F6 /* ColorWizardContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorWizardContentView.swift; sourceTree = "<group>"; };
+		9665D9602745C2FA0055F1F6 /* ColorWizardContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorWizardContentViewModel.swift; sourceTree = "<group>"; };
+		9665D9622745C3410055F1F6 /* ColorWizardConfigurationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorWizardConfigurationViewModel.swift; sourceTree = "<group>"; };
+		9665D9642745C3700055F1F6 /* ColorWizardConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorWizardConfiguration.swift; sourceTree = "<group>"; };
+		9665D9672745C53B0055F1F6 /* ColorWizardConfiguration+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColorWizardConfiguration+Mock.swift"; sourceTree = "<group>"; };
 		96B4E06127432D6100EC88B3 /* MVVM.Demo.SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVVM.Demo.SwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96B4E06427432D6100EC88B3 /* MVVM_Demo_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVVM_Demo_SwiftUIApp.swift; sourceTree = "<group>"; };
 		96B4E06827432D6200EC88B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -143,6 +161,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9665D9532745C1B50055F1F6 /* ColorWizard */ = {
+			isa = PBXGroup;
+			children = (
+				9665D9692745CCB70055F1F6 /* Configuration */,
+				9665D95D2745C2C80055F1F6 /* Content */,
+				9665D9582745C2210055F1F6 /* PageCoordinator */,
+				9665D9542745C1D60055F1F6 /* ColorWizardCoordinatorView.swift */,
+				9665D9562745C1F10055F1F6 /* ColorWizardCoordinator.swift */,
+			);
+			path = ColorWizard;
+			sourceTree = "<group>";
+		};
+		9665D9582745C2210055F1F6 /* PageCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				9665D9592745C2540055F1F6 /* ColorWizardPageCoordinatorView.swift */,
+				9665D95B2745C26F0055F1F6 /* ColorWizardPageCoordinator.swift */,
+			);
+			path = PageCoordinator;
+			sourceTree = "<group>";
+		};
+		9665D95D2745C2C80055F1F6 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				9665D95E2745C2E00055F1F6 /* ColorWizardContentView.swift */,
+				9665D9602745C2FA0055F1F6 /* ColorWizardContentViewModel.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+		9665D9692745CCB70055F1F6 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				9665D9642745C3700055F1F6 /* ColorWizardConfiguration.swift */,
+				9665D9672745C53B0055F1F6 /* ColorWizardConfiguration+Mock.swift */,
+				9665D9622745C3410055F1F6 /* ColorWizardConfigurationViewModel.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
 		96B4E05827432D6100EC88B3 = {
 			isa = PBXGroup;
 			children = (
@@ -264,6 +322,7 @@
 		96B4E0C52743312600EC88B3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				9665D9532745C1B50055F1F6 /* ColorWizard */,
 				96B4E0C62743312F00EC88B3 /* AppRootCoordinator */,
 				96B4E0D22743381500EC88B3 /* Landing */,
 				96B4E0EC274424E800EC88B3 /* Pulse */,
@@ -493,17 +552,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9665D9682745C53B0055F1F6 /* ColorWizardConfiguration+Mock.swift in Sources */,
 				96B4E0E427437CBA00EC88B3 /* SignInViewModel.swift in Sources */,
 				96B4E0AC27432F8900EC88B3 /* String+Extensions.swift in Sources */,
 				96B4E0AE27432FAB00EC88B3 /* UIApplication+EndEditing.swift in Sources */,
 				96B4E0DA2743390E00EC88B3 /* BrightBorderedButtonStyle.swift in Sources */,
 				96B4E0EB274386FA00EC88B3 /* Color+SystemColors.swift in Sources */,
+				9665D95F2745C2E00055F1F6 /* ColorWizardContentView.swift in Sources */,
+				9665D9632745C3410055F1F6 /* ColorWizardConfigurationViewModel.swift in Sources */,
 				96B4E0C4274330E600EC88B3 /* ViewModelAssembly.swift in Sources */,
 				96B4E09327432E4000EC88B3 /* HapticFeedbackProvider.swift in Sources */,
 				96B4E0C82743313900EC88B3 /* AppRootCoordinatorView.swift in Sources */,
 				96B4E09627432E6800EC88B3 /* CancelBag.swift in Sources */,
 				96B4E0D42743382B00EC88B3 /* LandingView.swift in Sources */,
 				96B4E0CF274335A900EC88B3 /* ColorService.swift in Sources */,
+				9665D95A2745C2540055F1F6 /* ColorWizardPageCoordinatorView.swift in Sources */,
 				96B4E0CA2743314700EC88B3 /* AppRootCoordinator.swift in Sources */,
 				96B4E0B92743303F00EC88B3 /* View+OnReceive.swift in Sources */,
 				96B4E0D62743384F00EC88B3 /* LandingViewModel.swift in Sources */,
@@ -516,19 +579,24 @@
 				96B4E06527432D6100EC88B3 /* MVVM_Demo_SwiftUIApp.swift in Sources */,
 				96B4E0A727432F1C00EC88B3 /* PassthroughSubject+Extensions.swift in Sources */,
 				96B4E09827432E7D00EC88B3 /* Just+Void.swift in Sources */,
+				9665D9552745C1D60055F1F6 /* ColorWizardCoordinatorView.swift in Sources */,
 				96B4E0B72743302100EC88B3 /* View+Navigation.swift in Sources */,
+				9665D9612745C2FA0055F1F6 /* ColorWizardContentViewModel.swift in Sources */,
 				96B4E0D1274336EE00EC88B3 /* AlertService.swift in Sources */,
 				96B4E0BE2743309B00EC88B3 /* AppAssembler.swift in Sources */,
 				96B4E09C27432EB100EC88B3 /* Publisher+Extensions.swift in Sources */,
 				96B4E0F0274424FE00EC88B3 /* PulseViewModel.swift in Sources */,
 				96B4E0E227437CA200EC88B3 /* SignInView.swift in Sources */,
 				96B4E0DF2743396600EC88B3 /* ButtonTextStyle.swift in Sources */,
+				9665D95C2745C26F0055F1F6 /* ColorWizardPageCoordinator.swift in Sources */,
 				96B4E0DD2743393E00EC88B3 /* TextStyle.swift in Sources */,
 				96B4E0B327432FEB00EC88B3 /* EdgeInsets+Extensions.swift in Sources */,
 				96B4E09A27432E9300EC88B3 /* Publisher+DefinedScheduler.swift in Sources */,
 				96B4E0EE274424F600EC88B3 /* PulseView.swift in Sources */,
 				96B4E0E927437D5300EC88B3 /* CardView.swift in Sources */,
+				9665D9652745C3700055F1F6 /* ColorWizardConfiguration.swift in Sources */,
 				96B4E0CD274331EE00EC88B3 /* AuthenticationService.swift in Sources */,
+				9665D9572745C1F10055F1F6 /* ColorWizardCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

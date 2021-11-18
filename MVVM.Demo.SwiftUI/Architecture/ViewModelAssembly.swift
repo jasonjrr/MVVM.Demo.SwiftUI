@@ -10,6 +10,10 @@ import Swinject
 
 class ViewModelAssembly: Assembly {
   func assemble(container: Container) {
+    container.register(ColorWizardContentViewModel.self) { r in
+      ColorWizardContentViewModel()
+    }.inObjectScope(.transient)
+    
     container.register(LandingViewModel.self) { r in
       LandingViewModel(
         alertService: r.resolve(AlertServiceProtocol.self)!,

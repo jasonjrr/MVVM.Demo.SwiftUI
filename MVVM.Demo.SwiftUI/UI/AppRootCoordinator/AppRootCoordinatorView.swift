@@ -25,6 +25,11 @@ struct AppRootCoordinatorView: View {
           .navigation(item: self.$coordinator.pulseViewModel) {
             PulseView(viewModel: $0)
           }
+          .fullScreenCover(item: self.$coordinator.colorWizardCoordinator) { coordinator in
+            NavigationView {
+              ColorWizardCoordinatorView(coordiantor: coordinator)
+            }
+          }
         
         if let viewModel = self.signInViewModel {
           SignInView(viewModel: viewModel)

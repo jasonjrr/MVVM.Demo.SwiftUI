@@ -16,6 +16,7 @@ class AppRootCoordinator: ViewModel {
   
   @Published var signInViewModel: SignInViewModel?
   @Published var pulseViewModel: PulseViewModel?
+  @Published var colorWizardCoordinator: ColorWizardCoordinator?
   @Published var alert: AlertService.Alert?
   
   init(resolver: Resolver) {
@@ -36,6 +37,11 @@ extension AppRootCoordinator: LandingViewModelDelegate {
   func landingViewModelDidTapSignIn(_ source: LandingViewModel) {
     self.signInViewModel = self.resolver.resolve(SignInViewModel.self)!
       .setup(delegate: self)
+  }
+  
+  func landingViewModelDidTapColorWizard(_ source: LandingViewModel) {
+    self.colorWizardCoordinator = self.resolver.resolve(ColorWizardCoordinator.self)!
+      .setup(configuration: ColorWizardConfiguration.mock(), delegate: self)
   }
   
   func landingViewModel(_ source: LandingViewModel, didAlertWith alert: AlertService.Alert) {
@@ -59,4 +65,11 @@ extension AppRootCoordinator: SignInViewModelDelegate {
 // MARK: PulseViewModelDelegate
 extension AppRootCoordinator: PulseViewModelDelegate {
   // Nothing yet
+}
+
+// MARK: ColorWizardCoordinatorDelegate
+extension AppRootCoordinator: ColorWizardCoordinatorDelegate {
+  func colorWizardCoordinatorDidComplete(_ source: ColorWizardCoordinator) {
+    self.colorWizardCoordinator = nil
+  }
 }
