@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9647788B2774F0EE002203DE /* AnyPublisher+AwaitResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9647788A2774F0EE002203DE /* AnyPublisher+AwaitResults.swift */; };
+		9647788D2774F122002203DE /* XCTestCase+AwaitPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9647788C2774F122002203DE /* XCTestCase+AwaitPublisher.swift */; };
+		964778902774F240002203DE /* AuthenticationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9647788F2774F240002203DE /* AuthenticationServiceTests.swift */; };
+		964778922774F64A002203DE /* Result+TestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964778912774F64A002203DE /* Result+TestExtensions.swift */; };
 		9665D9552745C1D60055F1F6 /* ColorWizardCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665D9542745C1D60055F1F6 /* ColorWizardCoordinatorView.swift */; };
 		9665D9572745C1F10055F1F6 /* ColorWizardCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665D9562745C1F10055F1F6 /* ColorWizardCoordinator.swift */; };
 		9665D95A2745C2540055F1F6 /* ColorWizardPageCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665D9592745C2540055F1F6 /* ColorWizardPageCoordinatorView.swift */; };
@@ -79,6 +83,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9647788A2774F0EE002203DE /* AnyPublisher+AwaitResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyPublisher+AwaitResults.swift"; sourceTree = "<group>"; };
+		9647788C2774F122002203DE /* XCTestCase+AwaitPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+AwaitPublisher.swift"; sourceTree = "<group>"; };
+		9647788F2774F240002203DE /* AuthenticationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationServiceTests.swift; sourceTree = "<group>"; };
+		964778912774F64A002203DE /* Result+TestExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+TestExtensions.swift"; sourceTree = "<group>"; };
 		9665D9542745C1D60055F1F6 /* ColorWizardCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorWizardCoordinatorView.swift; sourceTree = "<group>"; };
 		9665D9562745C1F10055F1F6 /* ColorWizardCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorWizardCoordinator.swift; sourceTree = "<group>"; };
 		9665D9592745C2540055F1F6 /* ColorWizardPageCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorWizardPageCoordinatorView.swift; sourceTree = "<group>"; };
@@ -161,6 +169,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		964778892774F0C9002203DE /* TestExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				9647788A2774F0EE002203DE /* AnyPublisher+AwaitResults.swift */,
+				964778912774F64A002203DE /* Result+TestExtensions.swift */,
+				9647788C2774F122002203DE /* XCTestCase+AwaitPublisher.swift */,
+			);
+			path = TestExtensions;
+			sourceTree = "<group>";
+		};
+		9647788E2774F1FD002203DE /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				9647788F2774F240002203DE /* AuthenticationServiceTests.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		9665D9532745C1B50055F1F6 /* ColorWizard */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,6 +274,8 @@
 		96B4E07427432D6300EC88B3 /* MVVM.Demo.SwiftUITests */ = {
 			isa = PBXGroup;
 			children = (
+				964778892774F0C9002203DE /* TestExtensions */,
+				9647788E2774F1FD002203DE /* Services */,
 				96B4E07527432D6300EC88B3 /* MVVM_Demo_SwiftUITests.swift */,
 			);
 			path = MVVM.Demo.SwiftUITests;
@@ -605,6 +633,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				96B4E07627432D6300EC88B3 /* MVVM_Demo_SwiftUITests.swift in Sources */,
+				9647788B2774F0EE002203DE /* AnyPublisher+AwaitResults.swift in Sources */,
+				964778902774F240002203DE /* AuthenticationServiceTests.swift in Sources */,
+				964778922774F64A002203DE /* Result+TestExtensions.swift in Sources */,
+				9647788D2774F122002203DE /* XCTestCase+AwaitPublisher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
