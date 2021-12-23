@@ -22,7 +22,7 @@ struct BrightBorderedButtonStyle: ButtonStyle {
     configuration.label
       .foregroundColor(.white)
       .colorMultiply(self.color)
-      .textStyle(ButtonTextStyle())
+      .textStyle(.button)
       .overlay(
         RoundedRectangle(cornerRadius: self.cornerRadius, style: .continuous)
           .stroke(self.color, lineWidth: self.borderWidth)

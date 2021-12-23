@@ -17,15 +17,21 @@ struct SignInView: View {
     VStack {
       Spacer()
       if self.showCard {
-        CardView(color: Color.systemBackground.opacity(0.25), cornerRadius: .large) {
+        CardView(color: Color.systemBackground, cornerRadius: .large) {
           VStack {
             VStack(alignment: .leading) {
               Text("User Name")
+                .padding(EdgeInsets(horizontal: 8.0, vertical: 0.0))
               TextField("User Name", text: self.$viewModel.username, prompt: nil)
+                .padding()
+                .background(RoundedRectangle(cornerRadius: 3.0).stroke(Color.systemGroupedBackground))
               Text("Password").padding(.top)
+                .padding(EdgeInsets(horizontal: 8.0, vertical: 0.0))
               SecureField("Password", text: self.$viewModel.password, prompt: nil)
+                .padding()
+                .background(RoundedRectangle(cornerRadius: 3.0).stroke(Color.systemGroupedBackground))
             }
-            .padding(24.0)
+            .padding(16.0)
             
             HStack {
               Button(action: self.viewModel.cancel) {
@@ -49,6 +55,8 @@ struct SignInView: View {
           }
         }
         .fixedSize(horizontal: false, vertical: true)
+        .clipped()
+        .shadow(radius: 3.0)
         .padding(36.0)
         .transition(.scale(scale: 0.0))
       }

@@ -13,3 +13,9 @@ struct ButtonTextStyle: TextStyle {
       .font(.system(size: 18.0, weight: .semibold, design: .rounded))
   }
 }
+
+extension TextStyle where Self == ButtonTextStyle {
+  static var button: Self {
+    ButtonTextStyle()
+  }
+}

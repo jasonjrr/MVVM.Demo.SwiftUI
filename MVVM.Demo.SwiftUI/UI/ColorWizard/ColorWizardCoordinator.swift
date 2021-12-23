@@ -21,8 +21,6 @@ class ColorWizardCoordinator: ViewModel {
   
   @Published var colorWizardPageCoordinator: ColorWizardPageCoordinator!
   
-  private var cancelBag = CancelBag()
-  
   init(resolver: Resolver) {
     self.resolver = resolver
   }
