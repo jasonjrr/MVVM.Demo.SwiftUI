@@ -39,7 +39,6 @@
 		96B4E0AE27432FAB00EC88B3 /* UIApplication+EndEditing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B4E0AD27432FAB00EC88B3 /* UIApplication+EndEditing.swift */; };
 		96B4E0B027432FD000EC88B3 /* Button+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B4E0AF27432FD000EC88B3 /* Button+Extensions.swift */; };
 		96B4E0B327432FEB00EC88B3 /* EdgeInsets+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B4E0B227432FEB00EC88B3 /* EdgeInsets+Extensions.swift */; };
-		96B4E0B52743300400EC88B3 /* View+Conditionals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B4E0B42743300400EC88B3 /* View+Conditionals.swift */; };
 		96B4E0B72743302100EC88B3 /* View+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B4E0B62743302100EC88B3 /* View+Navigation.swift */; };
 		96B4E0B92743303F00EC88B3 /* View+OnReceive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B4E0B82743303F00EC88B3 /* View+OnReceive.swift */; };
 		96B4E0BE2743309B00EC88B3 /* AppAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B4E0BD2743309B00EC88B3 /* AppAssembler.swift */; };
@@ -116,7 +115,6 @@
 		96B4E0AD27432FAB00EC88B3 /* UIApplication+EndEditing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+EndEditing.swift"; sourceTree = "<group>"; };
 		96B4E0AF27432FD000EC88B3 /* Button+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Extensions.swift"; sourceTree = "<group>"; };
 		96B4E0B227432FEB00EC88B3 /* EdgeInsets+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EdgeInsets+Extensions.swift"; sourceTree = "<group>"; };
-		96B4E0B42743300400EC88B3 /* View+Conditionals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Conditionals.swift"; sourceTree = "<group>"; };
 		96B4E0B62743302100EC88B3 /* View+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Navigation.swift"; sourceTree = "<group>"; };
 		96B4E0B82743303F00EC88B3 /* View+OnReceive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+OnReceive.swift"; sourceTree = "<group>"; };
 		96B4E0BD2743309B00EC88B3 /* AppAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssembler.swift; sourceTree = "<group>"; };
@@ -328,7 +326,6 @@
 				96B4E0AF27432FD000EC88B3 /* Button+Extensions.swift */,
 				96B4E0EA274386FA00EC88B3 /* Color+SystemColors.swift */,
 				96B4E0B227432FEB00EC88B3 /* EdgeInsets+Extensions.swift */,
-				96B4E0B42743300400EC88B3 /* View+Conditionals.swift */,
 				96B4E0B62743302100EC88B3 /* View+Navigation.swift */,
 				96B4E0B82743303F00EC88B3 /* View+OnReceive.swift */,
 			);
@@ -600,7 +597,6 @@
 				96B4E0D62743384F00EC88B3 /* LandingViewModel.swift in Sources */,
 				96B4E0E727437D0600EC88B3 /* VisualEffectView.swift in Sources */,
 				96B4E0C0274330B400EC88B3 /* CoordinatorAssembly.swift in Sources */,
-				96B4E0B52743300400EC88B3 /* View+Conditionals.swift in Sources */,
 				96B4E0B027432FD000EC88B3 /* Button+Extensions.swift in Sources */,
 				96B4E09127432E1100EC88B3 /* ViewModel.swift in Sources */,
 				96B4E0C2274330CB00EC88B3 /* ServiceAssembly.swift in Sources */,
