@@ -1,5 +1,5 @@
 //
-//  AuthenticationServiceTests.swift
+//  AuthenticationService+Tests.swift
 //  MVVM.Demo.SwiftUITests
 //
 //  Created by Jason Lew-Rapai on 12/23/21.
@@ -16,7 +16,6 @@ class AuthenticationServiceTest: XCTestCase {
   
   override func setUp() {
     super.setUp()
-    
     self.subject = AuthenticationService()
   }
 }

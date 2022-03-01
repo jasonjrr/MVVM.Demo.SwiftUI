@@ -17,7 +17,7 @@ class AppRootCoordinator: ViewModel {
   @Published var signInViewModel: SignInViewModel?
   @Published var pulseViewModel: PulseViewModel?
   @Published var colorWizardCoordinator: ColorWizardCoordinator?
-  @Published var alert: AlertService.Alert?
+  @Published var alert: AlertService.AlertPackage?
   
   init(resolver: Resolver) {
     self.resolver = resolver
@@ -44,7 +44,7 @@ extension AppRootCoordinator: LandingViewModelDelegate {
       .setup(configuration: ColorWizardConfiguration.mock(), delegate: self)
   }
   
-  func landingViewModel(_ source: LandingViewModel, didAlertWith alert: AlertService.Alert) {
+  func landingViewModel(_ source: LandingViewModel, didAlertWith alert: AlertService.AlertPackage) {
     DispatchQueue.main.async {
       self.alert = alert
     }

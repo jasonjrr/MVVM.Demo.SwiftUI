@@ -31,7 +31,7 @@ class AuthenticationService: AuthenticationServiceProtocol {
     let user = User(username: username, password: password)
     self._user.send(user)
     return self._user
-      .justLatest()
+      .prefix(1)
       .setFailureType(to: Error.self)
       .flatMapLatest { (newUser: User?) -> AnyPublisher<User, Error> in
         if newUser == user {
@@ -49,7 +49,7 @@ class AuthenticationService: AuthenticationServiceProtocol {
   func signOut() -> AnyPublisher<Void, Error> {
     self._user.send(nil)
     return self._user
-      .justLatest()
+      .prefix(1)
       .setFailureType(to: Error.self)
       .flatMapLatest { (newUser: User?) -> AnyPublisher<Void, Error> in
         if newUser == nil {

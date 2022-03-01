@@ -128,13 +128,6 @@ extension Publisher {
       .eraseToAnyPublisher()
   }
   
-  func justLatest() -> AnyPublisher<Self.Output, Self.Failure> {
-    Just()
-      .setFailureType(to: Self.Failure.self)
-      .withLatestFrom(self)
-      .eraseToAnyPublisher()
-  }
-  
   /// .withLatestFromFix(_:) in CombineExt is leaky for long-lived streams: https://github.com/CombineCommunity/CombineExt/issues/87
   /// This version fixes the stream issue (see comment on 8/6/2021 by freak4pc) https://gist.github.com/freak4pc/8d46ea6a6f5e5902c3fb5eba440a55c3
   func withLatestFromUnretained<Other: Publisher, Result>(_ other: Other, resultSelector: @escaping (Output, Other.Output) -> Result) -> AnyPublisher<Result, Failure> where Other.Failure == Failure {

@@ -13,7 +13,7 @@ protocol LandingViewModelDelegate: AnyObject {
   func landingViewModelDidTapPulse(_ source: LandingViewModel)
   func landingViewModelDidTapSignIn(_ source: LandingViewModel)
   func landingViewModelDidTapColorWizard(_ source: LandingViewModel)
-  func landingViewModel(_ source: LandingViewModel, didAlertWith alert: AlertService.Alert)
+  func landingViewModel(_ source: LandingViewModel, didAlertWith alert: AlertService.AlertPackage)
 }
 
 class LandingViewModel: ViewModel {
@@ -106,6 +106,6 @@ class LandingViewModel: ViewModel {
 extension LandingViewModel {
   enum AuthAction {
     case signIn
-    case signOut(alert: AlertService.Alert)
+    case signOut(alert: AlertService.AlertPackage)
   }
 }

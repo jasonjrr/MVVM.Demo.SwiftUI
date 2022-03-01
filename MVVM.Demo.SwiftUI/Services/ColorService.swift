@@ -11,7 +11,13 @@ import Combine
 
 protocol ColorServiceProtocol: AnyObject {
   func getNextColor() -> Color
-  func generateColors() -> AnyPublisher<Color, Never>
+  func generateColors(runLoop: RunLoop) -> AnyPublisher<Color, Never>
+}
+
+extension ColorServiceProtocol {
+  func generateColors(runLoop: RunLoop = .main) -> AnyPublisher<Color, Never> {
+    generateColors(runLoop: runLoop)
+  }
 }
 
 class ColorService: ColorServiceProtocol {
@@ -32,8 +38,8 @@ class ColorService: ColorServiceProtocol {
     }
   }
   
-  func generateColors() -> AnyPublisher<Color, Never> {
-    return Timer.publish(every: 1.0, on: .main, in: .default)
+  func generateColors(runLoop: RunLoop = .main) -> AnyPublisher<Color, Never> {
+    return Timer.publish(every: 1.0, on: runLoop, in: .default)
       .autoconnect()
       .map { timer in
         let selection = Int(timer.timeIntervalSince1970 * 1.5) % 7
