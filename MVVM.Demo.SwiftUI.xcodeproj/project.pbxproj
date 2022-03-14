@@ -63,6 +63,8 @@
 		96B4E0EB274386FA00EC88B3 /* Color+SystemColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B4E0EA274386FA00EC88B3 /* Color+SystemColors.swift */; };
 		96B4E0EE274424F600EC88B3 /* PulseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B4E0ED274424F600EC88B3 /* PulseView.swift */; };
 		96B4E0F0274424FE00EC88B3 /* PulseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B4E0EF274424FE00EC88B3 /* PulseViewModel.swift */; };
+		96F46E0627DFAF2700F20CDC /* AlertService+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F46E0527DFAF2700F20CDC /* AlertService+Tests.swift */; };
+		96F46E0827DFC57600F20CDC /* AlertService.AlertPackage.Button+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F46E0727DFC57600F20CDC /* AlertService.AlertPackage.Button+Tests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,6 +142,8 @@
 		96B4E0EA274386FA00EC88B3 /* Color+SystemColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+SystemColors.swift"; sourceTree = "<group>"; };
 		96B4E0ED274424F600EC88B3 /* PulseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseView.swift; sourceTree = "<group>"; };
 		96B4E0EF274424FE00EC88B3 /* PulseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseViewModel.swift; sourceTree = "<group>"; };
+		96F46E0527DFAF2700F20CDC /* AlertService+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlertService+Tests.swift"; sourceTree = "<group>"; };
+		96F46E0727DFC57600F20CDC /* AlertService.AlertPackage.Button+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlertService.AlertPackage.Button+Tests.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +185,7 @@
 		9647788E2774F1FD002203DE /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				96F46E0427DFAEC900F20CDC /* AlertService */,
 				9647788F2774F240002203DE /* AuthenticationService+Tests.swift */,
 				968D344E27CD978600340C18 /* ColorService+Tests.swift */,
 			);
@@ -450,6 +455,15 @@
 			path = Pulse;
 			sourceTree = "<group>";
 		};
+		96F46E0427DFAEC900F20CDC /* AlertService */ = {
+			isa = PBXGroup;
+			children = (
+				96F46E0527DFAF2700F20CDC /* AlertService+Tests.swift */,
+				96F46E0727DFC57600F20CDC /* AlertService.AlertPackage.Button+Tests.swift */,
+			);
+			path = AlertService;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -644,6 +658,8 @@
 				9647788B2774F0EE002203DE /* AnyPublisher+AwaitResults.swift in Sources */,
 				964778902774F240002203DE /* AuthenticationService+Tests.swift in Sources */,
 				968D344F27CD978600340C18 /* ColorService+Tests.swift in Sources */,
+				96F46E0827DFC57600F20CDC /* AlertService.AlertPackage.Button+Tests.swift in Sources */,
+				96F46E0627DFAF2700F20CDC /* AlertService+Tests.swift in Sources */,
 				964778922774F64A002203DE /* Result+TestExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

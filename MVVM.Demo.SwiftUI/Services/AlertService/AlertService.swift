@@ -15,11 +15,11 @@ protocol AlertServiceProtocol: AnyObject {
 
 extension AlertServiceProtocol {
   func buildAlert(title: String, message: String? = nil, dismissButton: AlertService.AlertPackage.Button? = nil) -> AlertService.AlertPackage {
-    self.buildAlert(title: title, message: message, dismissButton: dismissButton)
+    buildAlert(title: title, message: message, dismissButton: dismissButton)
   }
   
   func buildAlert(title: String, message: String? = nil, primaryButton: AlertService.AlertPackage.Button, secondaryButton: AlertService.AlertPackage.Button) -> AlertService.AlertPackage {
-    self.buildAlert(title: title, message: message, primaryButton: primaryButton, secondaryButton: secondaryButton)
+    buildAlert(title: title, message: message, primaryButton: primaryButton, secondaryButton: secondaryButton)
   }
 }
 
@@ -69,15 +69,15 @@ extension AlertService.AlertPackage {
     let title: String
     let action: (() -> Void)?
     
-    static func `default`(_ title: String, action: (() -> Void)? = {}) -> AlertService.AlertPackage.Button {
+    static func `default`(_ title: String, action: (() -> Void)?) -> AlertService.AlertPackage.Button {
       AlertService.AlertPackage.Button(role: .default, title: title, action: action)
     }
     
-    static func cancel(_ title: String = "Cancel", action: (() -> Void)? = {}) -> AlertService.AlertPackage.Button {
+    static func cancel(_ title: String = "Cancel", action: (() -> Void)? = nil) -> AlertService.AlertPackage.Button {
       AlertService.AlertPackage.Button(role: .cancel, title: title, action: action)
     }
     
-    static func destructive(_ title: String, action: (() -> Void)? = {}) -> AlertService.AlertPackage.Button {
+    static func destructive(_ title: String, action: (() -> Void)?) -> AlertService.AlertPackage.Button {
       AlertService.AlertPackage.Button(role: .destructive, title: title, action: action)
     }
   }
