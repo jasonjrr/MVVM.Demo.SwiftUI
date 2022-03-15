@@ -65,6 +65,7 @@
 		96B4E0F0274424FE00EC88B3 /* PulseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B4E0EF274424FE00EC88B3 /* PulseViewModel.swift */; };
 		96F46E0627DFAF2700F20CDC /* AlertService+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F46E0527DFAF2700F20CDC /* AlertService+Tests.swift */; };
 		96F46E0827DFC57600F20CDC /* AlertService.AlertPackage.Button+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F46E0727DFC57600F20CDC /* AlertService.AlertPackage.Button+Tests.swift */; };
+		96F46E0A27E10E9700F20CDC /* AlertServiceProtocol+Extensions+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F46E0927E10E9700F20CDC /* AlertServiceProtocol+Extensions+Tests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,6 +145,7 @@
 		96B4E0EF274424FE00EC88B3 /* PulseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseViewModel.swift; sourceTree = "<group>"; };
 		96F46E0527DFAF2700F20CDC /* AlertService+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlertService+Tests.swift"; sourceTree = "<group>"; };
 		96F46E0727DFC57600F20CDC /* AlertService.AlertPackage.Button+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlertService.AlertPackage.Button+Tests.swift"; sourceTree = "<group>"; };
+		96F46E0927E10E9700F20CDC /* AlertServiceProtocol+Extensions+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlertServiceProtocol+Extensions+Tests.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -460,6 +462,7 @@
 			children = (
 				96F46E0527DFAF2700F20CDC /* AlertService+Tests.swift */,
 				96F46E0727DFC57600F20CDC /* AlertService.AlertPackage.Button+Tests.swift */,
+				96F46E0927E10E9700F20CDC /* AlertServiceProtocol+Extensions+Tests.swift */,
 			);
 			path = AlertService;
 			sourceTree = "<group>";
@@ -656,6 +659,7 @@
 			files = (
 				96B4E07627432D6300EC88B3 /* MVVM_Demo_SwiftUITests.swift in Sources */,
 				9647788B2774F0EE002203DE /* AnyPublisher+AwaitResults.swift in Sources */,
+				96F46E0A27E10E9700F20CDC /* AlertServiceProtocol+Extensions+Tests.swift in Sources */,
 				964778902774F240002203DE /* AuthenticationService+Tests.swift in Sources */,
 				968D344F27CD978600340C18 /* ColorService+Tests.swift in Sources */,
 				96F46E0827DFC57600F20CDC /* AlertService.AlertPackage.Button+Tests.swift in Sources */,
