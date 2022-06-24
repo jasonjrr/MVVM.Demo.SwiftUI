@@ -24,7 +24,6 @@ struct AppRootCoordinatorView: View {
       ZStack {
         LandingView(viewModel: self.coordinator.landingViewModel)
           .zIndex(0)
-          .navigationAlert(item: self.$coordinator.alert)
           .navigation(item: self.$coordinator.pulseViewModel) {
             PulseView(viewModel: $0)
           }

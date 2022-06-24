@@ -63,35 +63,18 @@ class LandingViewModel: ViewModel {
     
     self.signInOrOut
       .withLatestFrom(self.isAuthenticated)
-      .setFailureType(to: Error.self)
-      .flatMapLatest { isAuthenticated -> AnyPublisher<AuthAction, Error> in
-        if isAuthenticated {
-          return Just()
-            .setFailureType(to: Error.self)
-            .map {
-              alertService.present(
-                title: "Sign Out",
-                message: "Are you sure you want to sign out?",
-                primaryButton: .destructive("Yes, sign out") {
-                  authenticationService.signOutAsync()
-                },
-                secondaryButton: .cancel())
-              return .willSignOut
-            }
-            .eraseToAnyPublisher()
-        }
-        return Just()
-          .setFailureType(to: Error.self)
-          .map { .signIn }
-          .eraseToAnyPublisher()
-      }
-      .sink { [weak self] (authAction: AuthAction) in
+      .sink { [weak self] isAuthenticated in
         guard let self = self else { return }
-        switch authAction {
-        case .signIn:
+        if isAuthenticated {
+          alertService.present(
+            title: "Sign Out",
+            message: "Are you sure you want to sign out?",
+            primaryButton: .destructive("Yes, sign out") {
+              authenticationService.signOutAsync()
+            },
+            secondaryButton: .cancel())
+        } else {
           self.delegate?.landingViewModelDidTapSignIn(self)
-        case .willSignOut:
-          break
         }
       }
       .store(in: &self.cancelBag)
