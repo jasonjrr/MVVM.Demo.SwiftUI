@@ -1,25 +1,23 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "CombineExt",
-        "repositoryURL": "https://github.com/CombineCommunity/CombineExt",
-        "state": {
-          "branch": null,
-          "revision": "0880829102152185190064fd17847a7c681d2127",
-          "version": "1.5.1"
-        }
-      },
-      {
-        "package": "Swinject",
-        "repositoryURL": "https://github.com/Swinject/Swinject",
-        "state": {
-          "branch": null,
-          "revision": "f10b6e9ebff440f985c43008f7c2d097639fcb81",
-          "version": "2.8.1"
-        }
+  "pins" : [
+    {
+      "identity" : "combineext",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/CombineCommunity/CombineExt",
+      "state" : {
+        "revision" : "38a4d4cb01f8c7750671c786d33dfbea00cbd131",
+        "version" : "1.6.1"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "swinject",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Swinject/Swinject",
+      "state" : {
+        "revision" : "f10b6e9ebff440f985c43008f7c2d097639fcb81",
+        "version" : "2.8.1"
+      }
+    }
+  ],
+  "version" : 2
 }

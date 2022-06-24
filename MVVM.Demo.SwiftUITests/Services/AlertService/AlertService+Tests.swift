@@ -9,11 +9,12 @@ import XCTest
 @testable import MVVM_Demo_SwiftUI
 
 class AlertServiceTest: XCTestCase {
+  var alertManager = AlertManager()
   var subject: AlertService!
   
-  override func setUp() {
-    super.setUp()
-    self.subject = AlertService()
+  override func setUp() async throws {
+    try await super.setUp()
+    self.subject = AlertService(alertManager: self.alertManager)
   }
 }
 
@@ -24,16 +25,23 @@ class AlertService_when_buildAlert_title_message_dismissButton_and_dismissButton
   var expectedTitle: String!
   var expectedMessage: String!
   
-  override func setUp() {
-    super.setUp()
+  override func setUp() async throws {
+    try await super.setUp()
     
     self.expectedTitle = "test.title"
     self.expectedMessage = "test.message"
     
-    self.actualAlertPackage = self.subject.buildAlert(
+    var iterator = self.alertManager.$alert
+      .compactMap { $0 }
+      .values
+      .makeAsyncIterator()
+    
+    self.subject.present(
       title: self.expectedTitle,
       message: self.expectedMessage,
       dismissButton: nil)
+    
+    self.actualAlertPackage = await iterator.next()
   }
   
   func test_then_package_title_is_expected() {
@@ -74,8 +82,8 @@ class AlertService_when_buildAlert_title_message_dismissButton_and_dismissButton
   var expectedMessage: String!
   var expectedButton: AlertService.AlertPackage.Button!
   
-  override func setUp() {
-    super.setUp()
+  override func setUp() async throws {
+    try await super.setUp()
     
     self.expectedTitle = "test.title"
     self.expectedMessage = "test.message"
@@ -84,10 +92,17 @@ class AlertService_when_buildAlert_title_message_dismissButton_and_dismissButton
       title: "button.title",
       action: nil)
     
-    self.actualAlertPackage = self.subject.buildAlert(
+    var iterator = self.alertManager.$alert
+      .compactMap { $0 }
+      .values
+      .makeAsyncIterator()
+    
+    self.subject.present(
       title: self.expectedTitle,
       message: self.expectedMessage,
       dismissButton: self.expectedButton)
+    
+    self.actualAlertPackage = await iterator.next()
   }
   
   func test_then_package_title_is_expected() {
@@ -120,8 +135,8 @@ class AlertService_when_buildAlert_title_message_primaryButton_secondaryButton_i
   var expectedPrimaryButton: AlertService.AlertPackage.Button!
   var expectedSecondaryButton: AlertService.AlertPackage.Button!
   
-  override func setUp() {
-    super.setUp()
+  override func setUp() async throws {
+    try await super.setUp()
     
     self.expectedTitle = "test.title"
     self.expectedMessage = "test.message"
@@ -136,11 +151,18 @@ class AlertService_when_buildAlert_title_message_primaryButton_secondaryButton_i
       title: "button.title.secondary",
       action: nil)
     
-    self.actualAlertPackage = self.subject.buildAlert(
+    var iterator = self.alertManager.$alert
+      .compactMap { $0 }
+      .values
+      .makeAsyncIterator()
+    
+    self.subject.present(
       title: self.expectedTitle,
       message: self.expectedMessage,
       primaryButton: self.expectedPrimaryButton,
       secondaryButton: self.expectedSecondaryButton)
+    
+    self.actualAlertPackage = await iterator.next()
   }
   
   func test_then_package_title_is_expected() {

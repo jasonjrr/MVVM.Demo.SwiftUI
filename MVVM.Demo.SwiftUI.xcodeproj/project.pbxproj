@@ -65,7 +65,7 @@
 		96B4E0F0274424FE00EC88B3 /* PulseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B4E0EF274424FE00EC88B3 /* PulseViewModel.swift */; };
 		96F46E0627DFAF2700F20CDC /* AlertService+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F46E0527DFAF2700F20CDC /* AlertService+Tests.swift */; };
 		96F46E0827DFC57600F20CDC /* AlertService.AlertPackage.Button+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F46E0727DFC57600F20CDC /* AlertService.AlertPackage.Button+Tests.swift */; };
-		96F46E0A27E10E9700F20CDC /* AlertServiceProtocol+Extensions+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F46E0927E10E9700F20CDC /* AlertServiceProtocol+Extensions+Tests.swift */; };
+		E9959A7328666409006FDF5A /* AlertManager+Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9959A7228666409006FDF5A /* AlertManager+Environment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,7 +145,7 @@
 		96B4E0EF274424FE00EC88B3 /* PulseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseViewModel.swift; sourceTree = "<group>"; };
 		96F46E0527DFAF2700F20CDC /* AlertService+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlertService+Tests.swift"; sourceTree = "<group>"; };
 		96F46E0727DFC57600F20CDC /* AlertService.AlertPackage.Button+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlertService.AlertPackage.Button+Tests.swift"; sourceTree = "<group>"; };
-		96F46E0927E10E9700F20CDC /* AlertServiceProtocol+Extensions+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlertServiceProtocol+Extensions+Tests.swift"; sourceTree = "<group>"; };
+		E9959A7228666409006FDF5A /* AlertManager+Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlertManager+Environment.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -442,6 +442,7 @@
 		96B4E0E527437CF700EC88B3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E9959A71286663F9006FDF5A /* Modifiers */,
 				96B4E0E827437D5300EC88B3 /* CardView.swift */,
 				96B4E0E627437D0600EC88B3 /* VisualEffectView.swift */,
 			);
@@ -462,9 +463,16 @@
 			children = (
 				96F46E0527DFAF2700F20CDC /* AlertService+Tests.swift */,
 				96F46E0727DFC57600F20CDC /* AlertService.AlertPackage.Button+Tests.swift */,
-				96F46E0927E10E9700F20CDC /* AlertServiceProtocol+Extensions+Tests.swift */,
 			);
 			path = AlertService;
+			sourceTree = "<group>";
+		};
+		E9959A71286663F9006FDF5A /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				E9959A7228666409006FDF5A /* AlertManager+Environment.swift */,
+			);
+			path = Modifiers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -643,6 +651,7 @@
 				96B4E0DF2743396600EC88B3 /* ButtonTextStyle.swift in Sources */,
 				9665D95C2745C26F0055F1F6 /* ColorWizardPageCoordinator.swift in Sources */,
 				96B4E0DD2743393E00EC88B3 /* TextStyle.swift in Sources */,
+				E9959A7328666409006FDF5A /* AlertManager+Environment.swift in Sources */,
 				96B4E0B327432FEB00EC88B3 /* EdgeInsets+Extensions.swift in Sources */,
 				96B4E09A27432E9300EC88B3 /* Publisher+DefinedScheduler.swift in Sources */,
 				96B4E0EE274424F600EC88B3 /* PulseView.swift in Sources */,
@@ -659,7 +668,6 @@
 			files = (
 				96B4E07627432D6300EC88B3 /* MVVM_Demo_SwiftUITests.swift in Sources */,
 				9647788B2774F0EE002203DE /* AnyPublisher+AwaitResults.swift in Sources */,
-				96F46E0A27E10E9700F20CDC /* AlertServiceProtocol+Extensions+Tests.swift in Sources */,
 				964778902774F240002203DE /* AuthenticationService+Tests.swift in Sources */,
 				968D344F27CD978600340C18 /* ColorService+Tests.swift in Sources */,
 				96F46E0827DFC57600F20CDC /* AlertService.AlertPackage.Button+Tests.swift in Sources */,

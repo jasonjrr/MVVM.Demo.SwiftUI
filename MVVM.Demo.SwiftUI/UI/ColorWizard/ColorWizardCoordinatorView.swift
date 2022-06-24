@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct ColorWizardCoordinatorView: View {
-  @ObservedObject var coordiantor: ColorWizardCoordinator
+  @ObservedObject var coordinator: ColorWizardCoordinator
   
   var body: some View {
-    ColorWizardPageCoordinatorView(coordinator: self.coordiantor.colorWizardPageCoordinator)
+    ColorWizardPageCoordinatorView(coordinator: self.coordinator.colorWizardPageCoordinator)
   }
 }

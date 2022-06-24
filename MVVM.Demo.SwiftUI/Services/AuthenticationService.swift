@@ -16,6 +16,7 @@ protocol AuthenticationServiceProtocol: AnyObject {
   
   func signIn(username: String, password: String) -> AnyPublisher<User, Error>
   func signOut() -> AnyPublisher<Void, Error>
+  func signOutAsync()
 }
 
 class AuthenticationService: AuthenticationServiceProtocol {
@@ -26,6 +27,8 @@ class AuthenticationService: AuthenticationServiceProtocol {
     .map { return $0 != nil }
     .share(replay: 1)
     .eraseToAnyPublisher()
+  
+  private var cancelBag = CancelBag()
   
   func signIn(username: String, password: String) -> AnyPublisher<User, Error> {
     let user = User(username: username, password: password)
@@ -62,6 +65,10 @@ class AuthenticationService: AuthenticationServiceProtocol {
         }
       }
       .eraseToAnyPublisher()
+  }
+  
+  func signOutAsync() {
+    self.signOut().sink().store(in: &self.cancelBag)
   }
 }
 

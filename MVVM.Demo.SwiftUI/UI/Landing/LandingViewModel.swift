@@ -13,7 +13,6 @@ protocol LandingViewModelDelegate: AnyObject {
   func landingViewModelDidTapPulse(_ source: LandingViewModel)
   func landingViewModelDidTapSignIn(_ source: LandingViewModel)
   func landingViewModelDidTapColorWizard(_ source: LandingViewModel)
-  func landingViewModel(_ source: LandingViewModel, didAlertWith alert: AlertService.AlertPackage)
 }
 
 class LandingViewModel: ViewModel {
@@ -70,12 +69,15 @@ class LandingViewModel: ViewModel {
           return Just()
             .setFailureType(to: Error.self)
             .map {
-              .signOut(alert: alertService
-                .buildAlert(
-                  title: "Sign Out",
-                  message: "Are you sure you want to sign out?",
-                  primaryButton: .destructive("Yes, sign out", action: { _ = authenticationService.signOut() }),
-                  secondaryButton: .cancel())) }
+              alertService.present(
+                title: "Sign Out",
+                message: "Are you sure you want to sign out?",
+                primaryButton: .destructive("Yes, sign out") {
+                  authenticationService.signOutAsync()
+                },
+                secondaryButton: .cancel())
+              return .willSignOut
+            }
             .eraseToAnyPublisher()
         }
         return Just()
@@ -88,8 +90,8 @@ class LandingViewModel: ViewModel {
         switch authAction {
         case .signIn:
           self.delegate?.landingViewModelDidTapSignIn(self)
-        case .signOut(let alert):
-          self.delegate?.landingViewModel(self, didAlertWith: alert)
+        case .willSignOut:
+          break
         }
       }
       .store(in: &self.cancelBag)
@@ -106,6 +108,6 @@ class LandingViewModel: ViewModel {
 extension LandingViewModel {
   enum AuthAction {
     case signIn
-    case signOut(alert: AlertService.AlertPackage)
+    case willSignOut
   }
 }

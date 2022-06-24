@@ -8,28 +8,46 @@
 import Foundation
 import Combine
 
+// MARK: AlertManager
+public class AlertManager: ObservableObject {
+  @Published var alert: AlertService.AlertPackage?
+}
+
+// MARK: AlertServiceProtocol
 protocol AlertServiceProtocol: AnyObject {
-  func buildAlert(title: String, message: String?, dismissButton: AlertService.AlertPackage.Button?) -> AlertService.AlertPackage
-  func buildAlert(title: String, message: String?, primaryButton: AlertService.AlertPackage.Button, secondaryButton: AlertService.AlertPackage.Button) -> AlertService.AlertPackage
+  func present(title: String, message: String?, dismissButton: AlertService.AlertPackage.Button?)
+  func present(title: String, message: String?, primaryButton: AlertService.AlertPackage.Button, secondaryButton: AlertService.AlertPackage.Button)
 }
 
 extension AlertServiceProtocol {
-  func buildAlert(title: String, message: String? = nil, dismissButton: AlertService.AlertPackage.Button? = nil) -> AlertService.AlertPackage {
-    buildAlert(title: title, message: message, dismissButton: dismissButton)
+  func present(title: String, message: String? = nil, dismissButton: AlertService.AlertPackage.Button? = nil) {
+    present(title: title, message: message, dismissButton: dismissButton)
   }
   
-  func buildAlert(title: String, message: String? = nil, primaryButton: AlertService.AlertPackage.Button, secondaryButton: AlertService.AlertPackage.Button) -> AlertService.AlertPackage {
-    buildAlert(title: title, message: message, primaryButton: primaryButton, secondaryButton: secondaryButton)
+  func present(title: String, message: String? = nil, primaryButton: AlertService.AlertPackage.Button, secondaryButton: AlertService.AlertPackage.Button) {
+    present(title: title, message: message, primaryButton: primaryButton, secondaryButton: secondaryButton)
   }
 }
 
 class AlertService: AlertServiceProtocol {
-  func buildAlert(title: String, message: String? = nil, dismissButton: AlertService.AlertPackage.Button? = nil) -> AlertService.AlertPackage {
-    AlertPackage(title: title, message: message, dismissButton: dismissButton)
+  private let manager: AlertManager
+  
+  init(alertManager: AlertManager) {
+    self.manager = alertManager
   }
   
-  func buildAlert(title: String, message: String? = nil, primaryButton: AlertService.AlertPackage.Button, secondaryButton: AlertService.AlertPackage.Button) -> AlertService.AlertPackage {
-    AlertPackage(title: title, message: message, primaryButton: primaryButton, secondaryButton: secondaryButton)
+  func present(title: String, message: String?, dismissButton: AlertService.AlertPackage.Button?) {
+    let alert = AlertPackage(title: title, message: message, dismissButton: dismissButton)
+    DispatchQueue.main.async {
+      self.manager.alert = alert
+    }
+  }
+  
+  func present(title: String, message: String?, primaryButton: AlertService.AlertPackage.Button, secondaryButton: AlertService.AlertPackage.Button) {
+    let alert = AlertPackage(title: title, message: message, primaryButton: primaryButton, secondaryButton: secondaryButton)
+    DispatchQueue.main.async {
+      self.manager.alert = alert
+    }
   }
 }
 
