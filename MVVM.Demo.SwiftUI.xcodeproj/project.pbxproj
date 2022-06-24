@@ -1010,7 +1010,7 @@
 			repositoryURL = "https://github.com/CombineCommunity/CombineExt";
 			requirement = {
 				kind = exactVersion;
-				version = 1.5.1;
+				version = 1.6.1;
 			};
 		};
 		96B4E0A327432EFC00EC88B3 /* XCRemoteSwiftPackageReference "Swinject" */ = {
