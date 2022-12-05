@@ -26,23 +26,24 @@ struct LandingView: View {
             .fixedSize(horizontal: false, vertical: true)
             .contentShape(Rectangle())
         }
-        .buttonStyle(BrightBorderedButtonStyle())
+        .buttonStyle(.brightBorderedButton)
+        .busyOverlay()
+        .clipShape(RoundedRectangle(cornerRadius: 16.0, style: .continuous))
         
         Button(action: self.viewModel.pulse) {
           Text("Pulse")
             .frame(maxWidth: .infinity, minHeight: 54.0, idealHeight: 54.0, maxHeight: 54.0)
             .contentShape(Rectangle())
         }
-        .buttonStyle(BrightBorderedButtonStyle(color: self.pulseColor))
+        .buttonStyle(.brightBorderedButton(color: self.pulseColor))
         
         Button(action: self.viewModel.colorWizard) {
           Text("Color Wizard")
             .frame(maxWidth: .infinity, minHeight: 54.0, idealHeight: 54.0, maxHeight: 54.0)
             .contentShape(Rectangle())
         }
-        .buttonStyle(BrightBorderedButtonStyle())
+        .buttonStyle(.brightBorderedButton)
       }
-      
       .padding([.leading, .trailing], 48.0)
     }
     .navigationBarHidden(true)

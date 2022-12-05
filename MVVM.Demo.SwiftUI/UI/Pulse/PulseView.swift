@@ -16,6 +16,10 @@ struct PulseView: View {
     ZStack {
       ForEach(self.viewModel.colors) { item in
         PulseCircle(viewModel: item)
+          .frame(
+            width: max(UIScreen.main.bounds.size.width, UIScreen.main.bounds.size.height),
+            height: max(UIScreen.main.bounds.size.width, UIScreen.main.bounds.size.height)
+          )
       }
     }
     .navigationTitle(self.title)

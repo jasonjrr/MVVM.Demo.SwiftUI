@@ -11,6 +11,11 @@ struct ColorWizardCoordinatorView: View {
   @ObservedObject var coordinator: ColorWizardCoordinator
   
   var body: some View {
-    ColorWizardPageCoordinatorView(coordinator: self.coordinator.colorWizardPageCoordinator)
+    ObjectNavigationStack(path: self.coordinator.path) {
+      ColorWizardContentView(viewModel: self.coordinator.rootContentViewModel)
+        .navigationDestination(for: ColorWizardContentViewModel.self) {
+          ColorWizardContentView(viewModel: $0)
+        }
+    }
   }
 }

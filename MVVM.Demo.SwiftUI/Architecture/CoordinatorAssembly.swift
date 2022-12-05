@@ -17,9 +17,5 @@ class CoordinatorAssembly: Assembly {
     container.register(ColorWizardCoordinator.self) { r in
       ColorWizardCoordinator(resolver: r)
     }.inObjectScope(.transient)
-    
-    container.register(ColorWizardPageCoordinator.self) { r in
-      ColorWizardPageCoordinator(resolver: r)
-    }.inObjectScope(.transient)
   }
 }

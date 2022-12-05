@@ -13,6 +13,12 @@ struct SignInView: View {
   @State private var showCard: Bool = false
   @State private var signInDisabled: Bool = true
   
+  @FocusState private var focusState: FocusField?
+  enum FocusField {
+    case username
+    case password
+  }
+  
   var body: some View {
     VStack {
       Spacer()
@@ -23,15 +29,36 @@ struct SignInView: View {
               Text("User Name")
                 .padding(EdgeInsets(horizontal: 8.0, vertical: 0.0))
               TextField("User Name", text: self.$viewModel.username, prompt: nil)
+                .focused(self.$focusState, equals: .username)
                 .padding()
-                .background(RoundedRectangle(cornerRadius: 3.0).stroke(Color.systemGroupedBackground))
+                .background(RoundedRectangle(cornerRadius: 3.0).stroke(Color.systemGray))
+                .contentShape(Rectangle())
+                .onTapGesture {
+                  if self.focusState != .username {
+                    self.focusState = .username
+                  }
+                }
               Text("Password").padding(.top)
                 .padding(EdgeInsets(horizontal: 8.0, vertical: 0.0))
               SecureField("Password", text: self.$viewModel.password, prompt: nil)
+                .focused(self.$focusState, equals: .password)
                 .padding()
-                .background(RoundedRectangle(cornerRadius: 3.0).stroke(Color.systemGroupedBackground))
+                .background(RoundedRectangle(cornerRadius: 3.0).stroke(Color.systemGray))
+                .contentShape(Rectangle())
+                .onTapGesture {
+                  if self.focusState != .password {
+                    self.focusState = .password
+                  }
+                }
             }
             .padding(16.0)
+            .onSubmit {
+              switch self.focusState {
+              case .none: break
+              case .username: self.focusState = .password
+              case .password: self.focusState = nil
+              }
+            }
             
             HStack {
               Button(action: self.viewModel.cancel) {
@@ -68,8 +95,11 @@ struct SignInView: View {
         .edgesIgnoringSafeArea(.all)
     )
     .onAppear {
-      withAnimation(.spring()) {
+      withAnimation(.spring(response: 0.325, dampingFraction: 0.825, blendDuration: 0.2)) {
         self.showCard = true
+      }
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        self.focusState = .username
       }
     }
     .onReceive(self.viewModel.canSignIn) {

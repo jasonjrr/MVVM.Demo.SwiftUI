@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "busyindicator",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:jasonjrr/BusyIndicator.git",
+      "state" : {
+        "revision" : "dd4d5e4160372accad6ff54beb69c3354c85f63b",
+        "version" : "1.0.0"
+      }
+    },
+    {
       "identity" : "combineext",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/CombineCommunity/CombineExt",
