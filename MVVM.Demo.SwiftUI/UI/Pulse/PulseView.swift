@@ -24,7 +24,7 @@ struct PulseView: View {
     }
     .navigationTitle(self.title)
     .navigationBarTitleDisplayMode(.inline)
-    .overlay(VisualEffectView(effect: UIBlurEffect(style: .regular)).edgesIgnoringSafeArea(.all))
+    .overlay(.thinMaterial)
     .onReceive(self.viewModel.title.receive(on: .main)) {
       self.title = $0
     }

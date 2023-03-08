@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct SignInView: View {
+  @ScaledMetric private var buttonFontSize: CGFloat = 18.0
+  @ScaledMetric private var inverseCardPadding: CGFloat = 16.0
+  
   @ObservedObject var viewModel: SignInViewModel
   
   @State private var showCard: Bool = false
@@ -20,8 +23,7 @@ struct SignInView: View {
   }
   
   var body: some View {
-    VStack {
-      Spacer()
+    HStack {
       if self.showCard {
         CardView(color: Color.systemBackground, cornerRadius: .large) {
           VStack {
@@ -31,7 +33,7 @@ struct SignInView: View {
               TextField("User Name", text: self.$viewModel.username, prompt: nil)
                 .focused(self.$focusState, equals: .username)
                 .padding()
-                .background(RoundedRectangle(cornerRadius: 3.0).stroke(Color.systemGray))
+                .background(RoundedRectangle(cornerRadius: 8.0).stroke(Color.systemGray))
                 .contentShape(Rectangle())
                 .onTapGesture {
                   if self.focusState != .username {
@@ -43,7 +45,7 @@ struct SignInView: View {
               SecureField("Password", text: self.$viewModel.password, prompt: nil)
                 .focused(self.$focusState, equals: .password)
                 .padding()
-                .background(RoundedRectangle(cornerRadius: 3.0).stroke(Color.systemGray))
+                .background(RoundedRectangle(cornerRadius: 8.0).stroke(Color.systemGray))
                 .contentShape(Rectangle())
                 .onTapGesture {
                   if self.focusState != .password {
@@ -63,7 +65,9 @@ struct SignInView: View {
             HStack {
               Button(action: self.viewModel.cancel) {
                 Text("Cancel")
-                  .font(.system(size: 18.0))
+                  .lineLimit(1)
+                  .minimumScaleFactor(0.75)
+                  .font(.system(size: self.buttonFontSize))
                   .bold()
                   .frame(maxWidth: .infinity, minHeight: 48.0, idealHeight: 48.0, maxHeight: 48.0)
                   .contentShape(Rectangle())
@@ -71,8 +75,10 @@ struct SignInView: View {
               
               Button(action: self.viewModel.signIn) {
                 Text("Sign In")
-                  .font(.system(size: 18.0))
-                  .frame(maxWidth: .infinity, minHeight: 48.0, idealHeight: 48.0, maxHeight: 48.0)
+                  .lineLimit(1)
+                  .minimumScaleFactor(0.75)
+                  .font(.system(size: self.buttonFontSize))
+                  .frame(maxWidth: .infinity, minHeight: 48.0)
                   .contentShape(Rectangle())
               }
               .disabled(self.signInDisabled)
@@ -84,16 +90,12 @@ struct SignInView: View {
         .fixedSize(horizontal: false, vertical: true)
         .clipped()
         .shadow(radius: 3.0)
-        .padding(36.0)
+        .padding(max(52.0 - self.inverseCardPadding, 4.0))
         .transition(.scale(scale: 0.0))
       }
-      Spacer()
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)
-    .background(
-      ProgressiveVisualEffectView(effect: UIBlurEffect(style: .regular), intensity: 0.25)
-        .edgesIgnoringSafeArea(.all)
-    )
+    .background(.ultraThinMaterial)
     .onAppear {
       withAnimation(.spring(response: 0.325, dampingFraction: 0.825, blendDuration: 0.2)) {
         self.showCard = true
@@ -107,3 +109,17 @@ struct SignInView: View {
     }
   }
 }
+
+#if DEBUG
+struct SignInView_Previews: PreviewProvider {
+  static let appAssembler = AppAssembler()
+  static let viewModel = appAssembler.resolver.resolve(SignInViewModel.self)!
+  
+  static var previews: some View {
+    Group {
+      SignInView(viewModel: viewModel)
+        .edgesIgnoringSafeArea(.all)
+    }
+  }
+}
+#endif
