@@ -85,6 +85,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6FBF3B6729F10AA2008BB5B7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		6FD86CD8293DE9060052C759 /* ObjectNavigationStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectNavigationStack.swift; sourceTree = "<group>"; };
 		9647788A2774F0EE002203DE /* AnyPublisher+AwaitResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyPublisher+AwaitResults.swift"; sourceTree = "<group>"; };
 		9647788F2774F240002203DE /* AuthenticationService+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthenticationService+Tests.swift"; sourceTree = "<group>"; };
@@ -256,6 +257,7 @@
 		96B4E06327432D6100EC88B3 /* MVVM.Demo.SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				6FBF3B6729F10AA2008BB5B7 /* README.md */,
 				96B4E0BC2743306A00EC88B3 /* Architecture */,
 				96B4E08F27432DEB00EC88B3 /* Core */,
 				96B4E0CB274331DB00EC88B3 /* Services */,
