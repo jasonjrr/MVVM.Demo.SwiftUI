@@ -66,8 +66,17 @@ extension PulseViewModel {
     let color: Color
     @Published var opacity: Double = 0.0
     
-    init(color: Color) {
-      self.color = color
+    init(color model: ColorModel) {
+      switch model {
+      case .blue: self.color = .blue
+      case .green: self.color = .green
+      case .orange: self.color = .green
+      case .pink: self.color = .pink
+      case .purple: self.color = .purple
+      case .red: self.color = .red
+      case .white: self.color = .white
+      case .yellow: self.color = .yellow
+      }
     }
   }
 }

@@ -26,7 +26,7 @@ class LandingViewModel: ViewModel {
   var username: AnyPublisher<String, Never> {
     self.authenticationService.user.map { $0?.username ?? .empty }.eraseToAnyPublisher()
   }
-  let pulseColor: AnyPublisher<Color, Never>
+  let pulseColor: AnyPublisher<ColorModel, Never>
   
   let pulse: PassthroughSubject<Void, Never> = PassthroughSubject()
   let signInOrOut: PassthroughSubject<Void, Never> = PassthroughSubject()

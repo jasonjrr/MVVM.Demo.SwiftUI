@@ -19,7 +19,9 @@ class ColorWizardCoordinator: ViewModel {
   private weak var delegate: ColorWizardCoordinatorDelegate?
   private var configurationViewModel: ColorWizardConfigurationViewModel!
   
-  @Published var colorWizardPageCoordinator: ColorWizardPageCoordinator!
+  let path = ObjectNavigationPath()
+  
+  private(set) var rootContentViewModel: ColorWizardContentViewModel!
   
   init(resolver: Resolver) {
     self.resolver = resolver
@@ -30,8 +32,8 @@ class ColorWizardCoordinator: ViewModel {
     self.configurationViewModel = ColorWizardConfigurationViewModel(configuration: configuration)
   
     if let firstPageViewModel = self.configurationViewModel.pages.first {
-      self.colorWizardPageCoordinator = self.resolver.resolve(ColorWizardPageCoordinator.self)!
-        .setup(currentPageViewModel: firstPageViewModel, delegate: self)
+      self.rootContentViewModel = self.resolver.resolve(ColorWizardContentViewModel.self)!
+        .setup(pageViewModel: firstPageViewModel, delegate: self)
     } else {
       fatalError()
     }
@@ -40,33 +42,36 @@ class ColorWizardCoordinator: ViewModel {
   }
 }
 
-// MARK: ColorWizardPageCoordinatorDelegate
-extension ColorWizardCoordinator: ColorWizardPageCoordinatorDelegate {
-  func colorWizardPageCoordinator(_ source: ColorWizardPageCoordinator, canMoveBackFromIndex index: Int) -> Bool {
+// MARK: ColorWizardContentViewModelDelegate
+extension ColorWizardCoordinator: ColorWizardContentViewModelDelegate {
+  func colorWizardContentViewModel(_ source: ColorWizardContentViewModel, canMoveBackFromIndex index: Int) -> Bool {
     return index != 0
   }
   
-  func colorWizardPageCoordinator(_ source: ColorWizardPageCoordinator, canMoveForwardFromIndex index: Int) -> Bool {
+  func colorWizardContentViewModel(_ source: ColorWizardContentViewModel, canMoveForwardFromIndex index: Int) -> Bool {
     return self.configurationViewModel.pages.count > index + 1
   }
   
-  func colorWizardPageCoordinator(_ source: ColorWizardPageCoordinator, canCompleteFromIndex index: Int) -> Bool {
+  func colorWizardContentViewModel(_ source: ColorWizardContentViewModel, canCompleteFromIndex index: Int) -> Bool {
     return self.configurationViewModel.pages.count == index + 1
   }
   
-  func colorWizardPageCoordinator(_ source: ColorWizardPageCoordinator, didMoveBackFromIndex index: Int) {
-    fatalError("A back command should never reach this coordinator.")
+  func colorWizardContentViewModel(_ source: ColorWizardContentViewModel, didMoveBackFromIndex index: Int) {
+    self.path.removeLast(through: source)
   }
   
-  func colorWizardPageCoordinator(_ source: ColorWizardPageCoordinator, nextPageAfterIndex index: Int) -> ColorWizardConfigurationViewModel.PageViewModel? {
+  func colorWizardContentViewModel(_ source: ColorWizardContentViewModel, didMoveForwardFromIndex index: Int) {
     let newIndex = index + 1
     guard newIndex < self.configurationViewModel.pages.count else {
-      return nil
+      fatalError()
     }
-    return self.configurationViewModel.pages[newIndex]
+    let nextPageViewModel = self.configurationViewModel.pages[newIndex]
+    
+    self.path.append(self.resolver.resolve(ColorWizardContentViewModel.self)!
+      .setup(pageViewModel: nextPageViewModel, delegate: self))
   }
   
-  func colorWizardPageCoordinator(_ source: ColorWizardPageCoordinator, didCompleteFromIndex index: Int) {
+  func colorWizardContentViewModel(_ source: ColorWizardContentViewModel, didCompleteFromIndex index: Int) {
     self.delegate?.colorWizardCoordinatorDidComplete(self)
   }
 }

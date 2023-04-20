@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct ButtonTextStyle: TextStyle {
+  @ScaledMetric private var fontSize: CGFloat = 18.0
+  
   func body(content: Content) -> some View {
     content
-      .font(.system(size: 18.0, weight: .semibold, design: .rounded))
+      .font(.system(size: self.fontSize, weight: .semibold, design: .rounded))
   }
 }
 

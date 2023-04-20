@@ -16,11 +16,15 @@ struct PulseView: View {
     ZStack {
       ForEach(self.viewModel.colors) { item in
         PulseCircle(viewModel: item)
+          .frame(
+            width: max(UIScreen.main.bounds.size.width, UIScreen.main.bounds.size.height),
+            height: max(UIScreen.main.bounds.size.width, UIScreen.main.bounds.size.height)
+          )
       }
     }
     .navigationTitle(self.title)
     .navigationBarTitleDisplayMode(.inline)
-    .overlay(VisualEffectView(effect: UIBlurEffect(style: .regular)).edgesIgnoringSafeArea(.all))
+    .overlay(.thinMaterial)
     .onReceive(self.viewModel.title.receive(on: .main)) {
       self.title = $0
     }

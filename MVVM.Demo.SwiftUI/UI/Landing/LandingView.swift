@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct LandingView: View {
+  @ScaledMetric private var buttonPadding: CGFloat = 8.0
+  @ScaledMetric private var inverseHorizontalPadding: CGFloat = 8.0
+  
   @ObservedObject var viewModel: LandingViewModel
   
   @State private var isAuthenticated: Bool = false
@@ -21,29 +24,33 @@ struct LandingView: View {
           Text(self.isAuthenticated ? "Sign Out, \(self.username)" : "Sign In")
             .multilineTextAlignment(.center)
             .lineLimit(nil)
-            .padding(8.0)
-            .frame(maxWidth: .infinity, minHeight: 54.0, maxHeight: .infinity)
-            .fixedSize(horizontal: false, vertical: true)
+            .padding(self.buttonPadding)
+            .frame(maxWidth: .infinity, minHeight: 54.0)
             .contentShape(Rectangle())
         }
-        .buttonStyle(BrightBorderedButtonStyle())
+        .buttonStyle(.brightBorderedButton)
+        .busyOverlay()
+        .clipShape(RoundedRectangle(cornerRadius: 16.0, style: .continuous))
         
         Button(action: self.viewModel.pulse) {
           Text("Pulse")
-            .frame(maxWidth: .infinity, minHeight: 54.0, idealHeight: 54.0, maxHeight: 54.0)
+            .padding(self.buttonPadding)
+            .frame(maxWidth: .infinity, minHeight: 54.0)
             .contentShape(Rectangle())
         }
-        .buttonStyle(BrightBorderedButtonStyle(color: self.pulseColor))
+        .buttonStyle(.brightBorderedButton(color: self.pulseColor))
         
         Button(action: self.viewModel.colorWizard) {
           Text("Color Wizard")
-            .frame(maxWidth: .infinity, minHeight: 54.0, idealHeight: 54.0, maxHeight: 54.0)
+            .lineLimit(1)
+            .minimumScaleFactor(0.75)
+            .padding(self.buttonPadding)
+            .frame(maxWidth: .infinity, minHeight: 54.0)
             .contentShape(Rectangle())
         }
-        .buttonStyle(BrightBorderedButtonStyle())
+        .buttonStyle(.brightBorderedButton)
       }
-      
-      .padding([.leading, .trailing], 48.0)
+      .padding([.leading, .trailing], max(56.0 - self.inverseHorizontalPadding, 4.0))
     }
     .navigationBarHidden(true)
     .onReceive(self.viewModel.isAuthenticated.receive(on: .main)) {
@@ -53,7 +60,16 @@ struct LandingView: View {
       self.username = $0
     }
     .onReceive(self.viewModel.pulseColor.receive(on: .main), withAnimation: .easeInOut) {
-      self.pulseColor = $0
+      switch $0 {
+      case .blue: self.pulseColor = .blue
+      case .green: self.pulseColor = .green
+      case .orange: self.pulseColor = .green
+      case .pink: self.pulseColor = .pink
+      case .purple: self.pulseColor = .purple
+      case .red: self.pulseColor = .red
+      case .white: self.pulseColor = .white
+      case .yellow: self.pulseColor = .yellow
+      }
     }
   }
 }

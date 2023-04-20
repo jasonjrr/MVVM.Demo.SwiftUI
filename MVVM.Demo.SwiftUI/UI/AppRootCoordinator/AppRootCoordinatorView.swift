@@ -20,17 +20,15 @@ struct AppRootCoordinatorView: View {
   }
   
   var body: some View {
-    NavigationView {
+    ObjectNavigationStack(path: self.coordinator.path) {
       ZStack {
         LandingView(viewModel: self.coordinator.landingViewModel)
           .zIndex(0)
-          .navigation(item: self.$coordinator.pulseViewModel) {
+          .navigationDestination(for: PulseViewModel.self) {
             PulseView(viewModel: $0)
           }
           .fullScreenCover(item: self.$coordinator.colorWizardCoordinator) { coordinator in
-            NavigationView {
-              ColorWizardCoordinatorView(coordinator: coordinator)
-            }
+            ColorWizardCoordinatorView(coordinator: coordinator)
           }
         
         if let viewModel = self.signInViewModel {

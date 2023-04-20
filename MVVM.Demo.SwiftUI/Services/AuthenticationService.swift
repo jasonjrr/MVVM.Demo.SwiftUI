@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import CombineExt
 import SwiftUI
+import BusyIndicator
 
 protocol AuthenticationServiceProtocol: AnyObject {
   var user: AnyPublisher<User?, Never> { get }
@@ -20,6 +21,8 @@ protocol AuthenticationServiceProtocol: AnyObject {
 }
 
 class AuthenticationService: AuthenticationServiceProtocol {
+  private let busyIndicatorService: BusyIndicatorServiceProtocol
+  
   private let _user: CurrentValueSubject<User?, Never> = CurrentValueSubject(nil)
   var user: AnyPublisher<User?, Never> { self._user.eraseToAnyPublisher() }
   
@@ -29,6 +32,10 @@ class AuthenticationService: AuthenticationServiceProtocol {
     .eraseToAnyPublisher()
   
   private var cancelBag = CancelBag()
+  
+  init(busyIndicatorService: BusyIndicatorServiceProtocol) {
+    self.busyIndicatorService = busyIndicatorService
+  }
   
   func signIn(username: String, password: String) -> AnyPublisher<User, Error> {
     let user = User(username: username, password: password)
@@ -50,11 +57,15 @@ class AuthenticationService: AuthenticationServiceProtocol {
   }
   
   func signOut() -> AnyPublisher<Void, Error> {
+    let busySubject = self.busyIndicatorService.enqueue()
     self._user.send(nil)
     return self._user
       .prefix(1)
       .setFailureType(to: Error.self)
+      // This delay is to the the BusyIndicator at work.
+      .delay(for: 3.0, scheduler: DispatchQueue.global(qos: .userInitiated))
       .flatMapLatest { (newUser: User?) -> AnyPublisher<Void, Error> in
+        defer { busySubject.dequeue() }
         if newUser == nil {
           return Just()
             .setFailureType(to: Error.self)
@@ -68,7 +79,10 @@ class AuthenticationService: AuthenticationServiceProtocol {
   }
   
   func signOutAsync() {
-    self.signOut().sink().store(in: &self.cancelBag)
+    self.signOut()
+      .debug("## signout")
+      .sink()
+      .store(in: &self.cancelBag)
   }
 }
 
@@ -84,6 +98,6 @@ struct User: Equatable {
   
   static func ==(lhs: User, rhs: User) -> Bool {
     return lhs.username == rhs.username
-      && lhs.password == rhs.password
+    && lhs.password == rhs.password
   }
 }

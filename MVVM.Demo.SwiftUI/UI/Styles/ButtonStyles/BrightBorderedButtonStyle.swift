@@ -31,3 +31,13 @@ struct BrightBorderedButtonStyle: ButtonStyle {
       .opacity(configuration.isPressed ? 0.5 : 1.0)
   }
 }
+
+extension ButtonStyle where Self == BrightBorderedButtonStyle {
+  static var brightBorderedButton: BrightBorderedButtonStyle {
+    BrightBorderedButtonStyle()
+  }
+  
+  static func brightBorderedButton(color: Color = .accentColor, cornerRadius: CGFloat = 16.0, borderWidth: CGFloat = 2.0) -> BrightBorderedButtonStyle {
+    BrightBorderedButtonStyle(color: color, cornerRadius: cornerRadius, borderWidth: borderWidth)
+  }
+}

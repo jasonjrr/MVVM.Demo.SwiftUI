@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import BusyIndicator
 
 private let appAssembler: AppAssembler = AppAssembler()
 
@@ -17,6 +18,7 @@ struct MVVM_Demo_SwiftUIApp: App {
         coordinator: appAssembler.resolver.resolve(AppRootCoordinator.self)!
       )
       .alertManager(appAssembler.resolver.resolve(AlertManager.self)!)
+      .busyIndicator(appAssembler.resolver.resolve(BusyIndicatorServiceProtocol.self)!.busyIndicator)
     }
   }
 }

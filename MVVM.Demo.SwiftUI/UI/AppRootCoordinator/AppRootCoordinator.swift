@@ -14,8 +14,9 @@ class AppRootCoordinator: ViewModel {
   
   @Published private(set) var landingViewModel: LandingViewModel!
   
+  let path = ObjectNavigationPath()
+  
   @Published var signInViewModel: SignInViewModel?
-  @Published var pulseViewModel: PulseViewModel?
   @Published var colorWizardCoordinator: ColorWizardCoordinator?
   
   init(resolver: Resolver) {
@@ -29,8 +30,8 @@ class AppRootCoordinator: ViewModel {
 // MARK: LandingViewModelDelegate
 extension AppRootCoordinator: LandingViewModelDelegate {
   func landingViewModelDidTapPulse(_ source: LandingViewModel) {
-    self.pulseViewModel = self.resolver.resolve(PulseViewModel.self)!
-      .setup(delegate: self)
+    self.path.append(self.resolver.resolve(PulseViewModel.self)!
+      .setup(delegate: self))
   }
   
   func landingViewModelDidTapSignIn(_ source: LandingViewModel) {

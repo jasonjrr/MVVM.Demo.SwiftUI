@@ -7,6 +7,7 @@
 
 import Foundation
 import Swinject
+import BusyIndicator
 
 class ServiceAssembly: Assembly {
   func assemble(container: Container) {
@@ -19,11 +20,22 @@ class ServiceAssembly: Assembly {
     }.inObjectScope(.container)
     
     container.register(AuthenticationServiceProtocol.self) { r in
-      AuthenticationService()
+      AuthenticationService(
+        busyIndicatorService: r.resolve(BusyIndicatorServiceProtocol.self)!)
     }.inObjectScope(.container)
     
     container.register(ColorServiceProtocol.self) { r in
       ColorService()
+    }.inObjectScope(.container)
+    
+    assembleThirdParties(container: container)
+  }
+  
+  func assembleThirdParties(container: Container) {
+    container.register(BusyIndicatorServiceProtocol.self) { _ in
+      let config = BusyIndicatorConfiguration()
+      config.showBusyIndicatorDelay = 0
+      return BusyIndicatorService(configuration: config)
     }.inObjectScope(.container)
   }
 }
