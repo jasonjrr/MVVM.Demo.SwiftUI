@@ -36,3 +36,7 @@ MVVM Wiki: https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel
 - Reduces the burden of dependency injection by defining all injections in one place 
 - Greatly improves the ability to unit test your code by registering contained objects as Protocols which can be substituted with mocks
 - Makes sharing observable data throughout the app trivial while keeping each class/service focused and independent
+
+# Looking for an iOS 14 or 15 Example?
+https://github.com/jasonjrr/MVVM.Demo.SwiftUI/releases/tag/2.1.0
+Version `2.1.0` was built on iOS 14 and solves the navigation problems most developers experiences with `NavigationView`.  
