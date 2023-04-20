@@ -6,16 +6,26 @@
 //
 
 import Foundation
-import SwiftUI
 import Combine
 
+enum ColorModel {
+  case blue
+  case green
+  case orange
+  case pink
+  case purple
+  case red
+  case yellow
+  case white
+}
+
 protocol ColorServiceProtocol: AnyObject {
-  func getNextColor() -> Color
-  func generateColors(runLoop: RunLoop) -> AnyPublisher<Color, Never>
+  func getNextColor() -> ColorModel
+  func generateColors(runLoop: RunLoop) -> AnyPublisher<ColorModel, Never>
 }
 
 extension ColorServiceProtocol {
-  func generateColors(runLoop: RunLoop = .main) -> AnyPublisher<Color, Never> {
+  func generateColors(runLoop: RunLoop = .main) -> AnyPublisher<ColorModel, Never> {
     generateColors(runLoop: runLoop)
   }
 }
@@ -23,7 +33,7 @@ extension ColorServiceProtocol {
 class ColorService: ColorServiceProtocol {
   private var index: Int = 0
   
-  func getNextColor() -> Color {
+  func getNextColor() -> ColorModel {
     let selection = self.index % 7
     self.index = self.index + 1
     switch selection {
@@ -38,7 +48,7 @@ class ColorService: ColorServiceProtocol {
     }
   }
   
-  func generateColors(runLoop: RunLoop = .main) -> AnyPublisher<Color, Never> {
+  func generateColors(runLoop: RunLoop = .main) -> AnyPublisher<ColorModel, Never> {
     return Timer.publish(every: 1.0, on: runLoop, in: .default)
       .autoconnect()
       .map { timer in

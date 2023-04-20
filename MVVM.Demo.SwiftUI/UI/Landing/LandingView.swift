@@ -60,7 +60,16 @@ struct LandingView: View {
       self.username = $0
     }
     .onReceive(self.viewModel.pulseColor.receive(on: .main), withAnimation: .easeInOut) {
-      self.pulseColor = $0
+      switch $0 {
+      case .blue: self.pulseColor = .blue
+      case .green: self.pulseColor = .green
+      case .orange: self.pulseColor = .green
+      case .pink: self.pulseColor = .pink
+      case .purple: self.pulseColor = .purple
+      case .red: self.pulseColor = .red
+      case .white: self.pulseColor = .white
+      case .yellow: self.pulseColor = .yellow
+      }
     }
   }
 }

@@ -23,7 +23,7 @@ class ColorServiceTest: XCTestCase {
 
 class ColorService_when_getNextColor_is_called: ColorServiceTest {
   func test_then_colors_are_returned_in_expected_order() {
-    let actualColors: [Color] = [
+    let actualColors: [ColorModel] = [
       self.subject.getNextColor(),
       self.subject.getNextColor(),
       self.subject.getNextColor(),
@@ -36,7 +36,7 @@ class ColorService_when_getNextColor_is_called: ColorServiceTest {
       self.subject.getNextColor(),
     ]
     
-    let expectedColors: [Color] = [
+    let expectedColors: [ColorModel] = [
       .blue,
       .green,
       .orange,
@@ -55,7 +55,7 @@ class ColorService_when_getNextColor_is_called: ColorServiceTest {
 
 class ColorService_when_generateNextColor_is_called: ColorServiceTest {
   var subscription: AnyCancellable?
-  var values: [Color] = []
+  var values: [ColorModel] = []
    
   override func setUp() {
     super.setUp()
@@ -85,7 +85,7 @@ class ColorService_when_generateNextColor_is_called: ColorServiceTest {
     
     XCTAssertEqual(values.count, 10)
     
-    let possibleColors: [Color] = [
+    let possibleColors: [ColorModel] = [
       .blue,
       .green,
       .orange,

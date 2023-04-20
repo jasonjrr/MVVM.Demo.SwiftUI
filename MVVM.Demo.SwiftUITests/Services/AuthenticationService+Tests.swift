@@ -10,13 +10,14 @@ import Foundation
 import XCTest
 import Combine
 import CombineExt
+import BusyIndicator
 
 class AuthenticationServiceTest: XCTestCase {
   var subject: AuthenticationService!
   
   override func setUp() {
     super.setUp()
-    self.subject = AuthenticationService()
+    self.subject = AuthenticationService(busyIndicatorService: BusyIndicatorService())
   }
 }
 
