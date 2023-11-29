@@ -13,6 +13,7 @@ protocol ColorWizardCoordinatorDelegate: AnyObject {
   func colorWizardCoordinatorDidComplete(_ source: ColorWizardCoordinator)
 }
 
+@Observable
 class ColorWizardCoordinator: ViewModel {
   private let resolver: Resolver
   

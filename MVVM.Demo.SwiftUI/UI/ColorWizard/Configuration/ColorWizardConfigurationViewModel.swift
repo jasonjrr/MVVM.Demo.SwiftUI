@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import SwiftUI
 
+@Observable
 class ColorWizardConfigurationViewModel: ViewModel {
   let pages: [PageViewModel]
   
@@ -22,6 +23,7 @@ class ColorWizardConfigurationViewModel: ViewModel {
 }
 
 extension ColorWizardConfigurationViewModel {
+  @Observable
   class PageViewModel: ViewModel {
     let index: Int
     let title: String
@@ -36,6 +38,7 @@ extension ColorWizardConfigurationViewModel {
     }
   }
   
+  @Observable
   class ColorViewModel: ViewModel {
     let id: String = UUID().uuidString
     let color: Color

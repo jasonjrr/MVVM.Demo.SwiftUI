@@ -18,6 +18,7 @@ protocol ColorWizardContentViewModelDelegate: AnyObject {
   func colorWizardContentViewModel(_ source: ColorWizardContentViewModel, didCompleteFromIndex index: Int)
 }
 
+@Observable
 class ColorWizardContentViewModel: ViewModel {
   private var pageViewModel: ColorWizardConfigurationViewModel.PageViewModel!
   private weak var delegate: ColorWizardContentViewModelDelegate?

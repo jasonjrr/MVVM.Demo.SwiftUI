@@ -11,7 +11,7 @@ struct SignInView: View {
   @ScaledMetric private var buttonFontSize: CGFloat = 18.0
   @ScaledMetric private var inverseCardPadding: CGFloat = 16.0
   
-  @ObservedObject var viewModel: SignInViewModel
+  @State var viewModel: SignInViewModel
   
   @State private var showCard: Bool = false
   @State private var signInDisabled: Bool = true

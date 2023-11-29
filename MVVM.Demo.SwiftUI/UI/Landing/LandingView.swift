@@ -11,7 +11,7 @@ struct LandingView: View {
   @ScaledMetric private var buttonPadding: CGFloat = 8.0
   @ScaledMetric private var inverseHorizontalPadding: CGFloat = 8.0
   
-  @ObservedObject var viewModel: LandingViewModel
+  @State var viewModel: LandingViewModel
   
   @State private var isAuthenticated: Bool = false
   @State private var username: String = .empty

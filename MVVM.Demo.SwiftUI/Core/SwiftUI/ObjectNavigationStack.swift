@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ObjectNavigationStack<Content>: View where Content : View {
-  @ObservedObject var path: ObjectNavigationPath
+  @State var path: ObjectNavigationPath
   let content: () -> Content
   
   var body: some View {
@@ -16,9 +16,10 @@ struct ObjectNavigationStack<Content>: View where Content : View {
   }
 }
 
-class ObjectNavigationPath: ObservableObject {
+@Observable
+class ObjectNavigationPath {
   typealias NavigationObject = AnyObject & Hashable & Equatable
-  @Published fileprivate var path: NavigationPath = NavigationPath()
+  fileprivate var path: NavigationPath = NavigationPath()
   private var objects: [any NavigationObject] = []
   
   private let semaphore: DispatchSemaphore = DispatchSemaphore(value: 1)

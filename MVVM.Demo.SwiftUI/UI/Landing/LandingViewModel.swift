@@ -15,6 +15,7 @@ protocol LandingViewModelDelegate: AnyObject {
   func landingViewModelDidTapColorWizard(_ source: LandingViewModel)
 }
 
+@Observable
 class LandingViewModel: ViewModel {
   private let alertService: AlertServiceProtocol
   private let authenticationService: AuthenticationServiceProtocol

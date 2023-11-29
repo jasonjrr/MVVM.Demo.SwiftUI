@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ColorWizardContentView: View {
-  @ObservedObject var viewModel: ColorWizardContentViewModel
+  var viewModel: ColorWizardContentViewModel
   
   var body: some View {
     ZStack {

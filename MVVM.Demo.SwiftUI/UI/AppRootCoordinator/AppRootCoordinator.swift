@@ -9,15 +9,16 @@ import Foundation
 import Combine
 import Swinject
 
+@Observable
 class AppRootCoordinator: ViewModel {
   private let resolver: Resolver
   
-  @Published private(set) var landingViewModel: LandingViewModel!
+  private(set) var landingViewModel: LandingViewModel!
   
   let path = ObjectNavigationPath()
   
-  @Published var signInViewModel: SignInViewModel?
-  @Published var colorWizardCoordinator: ColorWizardCoordinator?
+  var signInViewModel: SignInViewModel?
+  var colorWizardCoordinator: ColorWizardCoordinator?
   
   init(resolver: Resolver) {
     self.resolver = resolver
