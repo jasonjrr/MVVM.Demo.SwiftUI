@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PulseView: View {
-  @ObservedObject var viewModel: PulseViewModel
+  var viewModel: PulseViewModel
   
   @State private var title: String = .empty
   
@@ -33,7 +33,7 @@ struct PulseView: View {
 
 extension PulseView {
   struct PulseCircle: View {
-    @ObservedObject var viewModel: PulseViewModel.ColorItem
+    @State var viewModel: PulseViewModel.ColorItem
     
     var body: some View {
       Circle()

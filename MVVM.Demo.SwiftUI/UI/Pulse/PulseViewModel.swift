@@ -9,16 +9,15 @@ import Foundation
 import Combine
 import SwiftUI
 
-protocol PulseViewModelDelegate: AnyObject {
-  
-}
+protocol PulseViewModelDelegate: AnyObject {}
 
+@Observable
 class PulseViewModel: ViewModel {
   private let authenticationService: AuthenticationServiceProtocol
   private let colorService: ColorServiceProtocol
   private weak var delegate: PulseViewModelDelegate?
   
-  @Published private(set) var colors: [ColorItem] = []
+  private(set) var colors: [ColorItem] = []
   
   var title: AnyPublisher<String, Never> {
     self.authenticationService.user
@@ -61,10 +60,11 @@ class PulseViewModel: ViewModel {
 }
 
 extension PulseViewModel {
+  @Observable
   class ColorItem: ViewModel {
     let id: String = UUID().uuidString
     let color: Color
-    @Published var opacity: Double = 0.0
+    var opacity: Double = 0.0
     
     init(color model: ColorModel) {
       switch model {

@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias ViewModelDefinition = (ObservableObject & Identifiable & Hashable & HapticFeedbackProvider)
+typealias ViewModelDefinition = (AnyObject & Identifiable & Hashable & HapticFeedbackProvider)
 
 protocol ViewModel: ViewModelDefinition {}
 

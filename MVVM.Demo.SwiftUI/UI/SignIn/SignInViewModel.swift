@@ -14,13 +14,23 @@ protocol SignInViewModelDelegate: AnyObject {
   func signInViewModelDidSignIn(_ source: SignInViewModel)
 }
 
+@Observable
 class SignInViewModel: ViewModel {
   private let authenticationService: AuthenticationServiceProtocol
   
   private weak var delegate: SignInViewModelDelegate?
   
-  @Published var username: String = .empty
-  @Published var password: String = .empty
+  var thing: String = .empty
+  
+  var username: String = .empty {
+    didSet { self.username$.send(self.username) }
+  }
+  private let username$: CurrentValueSubject<String, Never> = CurrentValueSubject(.empty)
+  
+  var password: String = .empty {
+    didSet { self.password$.send(self.password) }
+  }
+  private let password$: CurrentValueSubject<String, Never> = CurrentValueSubject(.empty)
   
   let cancel: PassthroughSubject<Void, Never> = PassthroughSubject()
   let signIn: PassthroughSubject<Void, Never> = PassthroughSubject()
@@ -33,8 +43,8 @@ class SignInViewModel: ViewModel {
     self.authenticationService = authenticationService
     
     self.canSignIn = [
-      self.$username,
-      self.$password
+      self.username$,
+      self.password$,
     ]
       .combineLatest()
       .map {
@@ -63,9 +73,7 @@ class SignInViewModel: ViewModel {
       .store(in: &self.cancelBag)
     
     self.signIn
-      .withLatestFrom(
-        self.$username,
-        self.$password)
+      .withLatestFrom(self.username$, self.password$)
       .setFailureType(to: Error.self)
       .flatMapLatest { username, password -> AnyPublisher<User, Error> in
         authenticationService

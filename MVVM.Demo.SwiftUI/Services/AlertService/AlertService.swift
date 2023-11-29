@@ -9,8 +9,13 @@ import Foundation
 import Combine
 
 // MARK: AlertManager
-public class AlertManager: ObservableObject {
-  @Published var alert: AlertService.AlertPackage?
+@Observable
+public class AlertManager: Equatable {
+  var alert: AlertService.AlertPackage?
+  
+  static public func ==(lhs: AlertManager, rhs: AlertManager) -> Bool {
+    lhs === rhs
+  }
 }
 
 // MARK: AlertServiceProtocol
@@ -52,7 +57,7 @@ class AlertService: AlertServiceProtocol {
 }
 
 extension AlertService {
-  struct AlertPackage: Identifiable {
+  struct AlertPackage: Identifiable, Equatable {
     let id: UUID = UUID()
     let title: String
     let message: String?
@@ -71,6 +76,10 @@ extension AlertService {
       self.message = message
       self.primaryButton = primaryButton
       self.secondaryButton = secondaryButton
+    }
+    
+    static func ==(lhs: AlertPackage, rhs: AlertPackage) -> Bool {
+      lhs.id == rhs.id
     }
   }
 }

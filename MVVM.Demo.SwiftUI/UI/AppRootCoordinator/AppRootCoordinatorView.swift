@@ -10,8 +10,9 @@ import SwiftUI
 struct AppRootCoordinatorView: View {
   @Environment(\.alertManager) var alertManager: AlertManager
   
-  @ObservedObject var coordinator: AppRootCoordinator
+  var coordinator: AppRootCoordinator
   
+  @State private var colorWizardCoordinator: ColorWizardCoordinator?
   @State private var signInViewModel: SignInViewModel?
   @State private var alert: AlertService.AlertPackage?
   
@@ -27,7 +28,7 @@ struct AppRootCoordinatorView: View {
           .navigationDestination(for: PulseViewModel.self) {
             PulseView(viewModel: $0)
           }
-          .fullScreenCover(item: self.$coordinator.colorWizardCoordinator) { coordinator in
+          .fullScreenCover(item: self.$colorWizardCoordinator) { coordinator in
             ColorWizardCoordinatorView(coordinator: coordinator)
           }
         
@@ -38,9 +39,12 @@ struct AppRootCoordinatorView: View {
       }
     }
     .navigationAlert(item: self.$alert)
-    .onReceive(self.alertManager.$alert) { self.alert = $0 }
-    .onReceive(self.coordinator.$signInViewModel, withAnimation: .easeInOut(duration: 0.375)) {
-      self.signInViewModel = $0
+    .onChange(of: self.coordinator.colorWizardCoordinator, initial: true) { _, value in
+      self.colorWizardCoordinator = value
+    }
+    .onChange(of: self.alertManager.alert, initial: true) { _, value in self.alert = value }
+    .onChange(of: self.coordinator.signInViewModel, initial: true) { _, value in
+      self.signInViewModel = value
     }
   }
 }
