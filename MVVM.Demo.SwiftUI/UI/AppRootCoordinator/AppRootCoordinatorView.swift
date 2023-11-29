@@ -10,15 +10,11 @@ import SwiftUI
 struct AppRootCoordinatorView: View {
   @Environment(\.alertManager) var alertManager: AlertManager
   
-  var coordinator: AppRootCoordinator
+  @State var coordinator: AppRootCoordinator
   
   @State private var colorWizardCoordinator: ColorWizardCoordinator?
   @State private var signInViewModel: SignInViewModel?
   @State private var alert: AlertService.AlertPackage?
-  
-  init(coordinator: AppRootCoordinator) {
-    self.coordinator = coordinator
-  }
   
   var body: some View {
     ObjectNavigationStack(path: self.coordinator.path) {

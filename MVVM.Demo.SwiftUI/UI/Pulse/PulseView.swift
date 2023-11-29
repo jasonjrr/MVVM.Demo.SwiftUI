@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PulseView: View {
-  var viewModel: PulseViewModel
+  @State var viewModel: PulseViewModel
   
   @State private var title: String = .empty
   
