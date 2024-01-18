@@ -11,7 +11,10 @@ import Combine
 // MARK: AlertManager
 @Observable
 public class AlertManager: Equatable {
-  var alert: AlertService.AlertPackage?
+  var alert: AlertService.AlertPackage? {
+    didSet { self.alert$.send(self.alert) }
+  }
+  let alert$: CurrentValueSubject<AlertService.AlertPackage?, Never> = CurrentValueSubject(nil)
   
   static public func ==(lhs: AlertManager, rhs: AlertManager) -> Bool {
     lhs === rhs

@@ -31,7 +31,7 @@ class AlertService_when_buildAlert_title_message_dismissButton_and_dismissButton
     self.expectedTitle = "test.title"
     self.expectedMessage = "test.message"
     
-    var iterator = self.alertManager.$alert
+    var iterator = self.alertManager.alert$
       .compactMap { $0 }
       .values
       .makeAsyncIterator()
@@ -92,7 +92,7 @@ class AlertService_when_buildAlert_title_message_dismissButton_and_dismissButton
       title: "button.title",
       action: nil)
     
-    var iterator = self.alertManager.$alert
+    var iterator = self.alertManager.alert$
       .compactMap { $0 }
       .values
       .makeAsyncIterator()
@@ -151,7 +151,7 @@ class AlertService_when_buildAlert_title_message_primaryButton_secondaryButton_i
       title: "button.title.secondary",
       action: nil)
     
-    var iterator = self.alertManager.$alert
+    var iterator = self.alertManager.alert$
       .compactMap { $0 }
       .values
       .makeAsyncIterator()
