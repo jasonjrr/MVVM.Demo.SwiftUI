@@ -23,7 +23,7 @@ class AppRootCoordinator: ViewModel {
   init(resolver: Resolver) {
     self.resolver = resolver
     
-    self.landingViewModel = self.resolver.resolve(LandingViewModel.self)!
+    self.landingViewModel = self.resolver.resolved(LandingViewModel.self)
       .setup(delegate: self)
   }
 }
@@ -31,17 +31,17 @@ class AppRootCoordinator: ViewModel {
 // MARK: LandingViewModelDelegate
 extension AppRootCoordinator: LandingViewModelDelegate {
   func landingViewModelDidTapPulse(_ source: LandingViewModel) {
-    self.path.append(self.resolver.resolve(PulseViewModel.self)!
+    self.path.append(self.resolver.resolved(PulseViewModel.self)
       .setup(delegate: self))
   }
   
   func landingViewModelDidTapSignIn(_ source: LandingViewModel) {
-    self.signInViewModel = self.resolver.resolve(SignInViewModel.self)!
+    self.signInViewModel = self.resolver.resolved(SignInViewModel.self)
       .setup(delegate: self)
   }
   
   func landingViewModelDidTapColorWizard(_ source: LandingViewModel) {
-    self.colorWizardCoordinator = self.resolver.resolve(ColorWizardCoordinator.self)!
+    self.colorWizardCoordinator = self.resolver.resolved(ColorWizardCoordinator.self)
       .setup(configuration: ColorWizardConfiguration.mock(), delegate: self)
   }
 }

@@ -16,20 +16,20 @@ class ViewModelAssembly: Assembly {
     
     container.register(LandingViewModel.self) { r in
       LandingViewModel(
-        alertService: r.resolve(AlertServiceProtocol.self)!,
-        authenticationService: r.resolve(AuthenticationServiceProtocol.self)!,
-        colorService: r.resolve(ColorServiceProtocol.self)!)
+        alertService: r.resolved(AlertServiceProtocol.self),
+        authenticationService: r.resolved(AuthenticationServiceProtocol.self),
+        colorService: r.resolved(ColorServiceProtocol.self))
     }.inObjectScope(.transient)
     
     container.register(PulseViewModel.self) { r in
       PulseViewModel(
-        authenticationService: r.resolve(AuthenticationServiceProtocol.self)!,
-        colorService: r.resolve(ColorServiceProtocol.self)!)
+        authenticationService: r.resolved(AuthenticationServiceProtocol.self),
+        colorService: r.resolved(ColorServiceProtocol.self))
     }.inObjectScope(.transient)
     
     container.register(SignInViewModel.self) { r in
       SignInViewModel(
-        authenticationService: r.resolve(AuthenticationServiceProtocol.self)!)
+        authenticationService: r.resolved(AuthenticationServiceProtocol.self))
     }.inObjectScope(.transient)
   }
 }

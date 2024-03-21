@@ -77,7 +77,7 @@ struct LandingView: View {
 #if DEBUG
 struct LandingView_Previews: PreviewProvider {
   static let appAssembler = AppAssembler()
-  static let viewModel = appAssembler.resolver.resolve(LandingViewModel.self)!
+  static let viewModel = appAssembler.resolver.resolved(LandingViewModel.self)
   
   static var previews: some View {
     Group {

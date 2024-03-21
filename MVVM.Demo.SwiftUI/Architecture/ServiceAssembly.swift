@@ -16,12 +16,12 @@ class ServiceAssembly: Assembly {
     }.inObjectScope(.container)
     
     container.register(AlertServiceProtocol.self) { r in
-      AlertService(alertManager: r.resolve(AlertManager.self)!)
+      AlertService(alertManager: r.resolved(AlertManager.self))
     }.inObjectScope(.container)
     
     container.register(AuthenticationServiceProtocol.self) { r in
       AuthenticationService(
-        busyIndicatorService: r.resolve(BusyIndicatorServiceProtocol.self)!)
+        busyIndicatorService: r.resolved(BusyIndicatorServiceProtocol.self))
     }.inObjectScope(.container)
     
     container.register(ColorServiceProtocol.self) { r in

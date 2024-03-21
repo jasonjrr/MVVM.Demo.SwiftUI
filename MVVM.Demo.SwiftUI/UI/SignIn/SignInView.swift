@@ -113,7 +113,7 @@ struct SignInView: View {
 #if DEBUG
 struct SignInView_Previews: PreviewProvider {
   static let appAssembler = AppAssembler()
-  static let viewModel = appAssembler.resolver.resolve(SignInViewModel.self)!
+  static let viewModel = appAssembler.resolver.resolved(SignInViewModel.self)
   
   static var previews: some View {
     Group {

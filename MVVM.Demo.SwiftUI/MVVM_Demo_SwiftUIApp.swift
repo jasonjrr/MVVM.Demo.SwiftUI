@@ -15,10 +15,10 @@ struct MVVM_Demo_SwiftUIApp: App {
   var body: some Scene {
     WindowGroup {
       AppRootCoordinatorView(
-        coordinator: appAssembler.resolver.resolve(AppRootCoordinator.self)!
+        coordinator: appAssembler.resolver.resolved(AppRootCoordinator.self)
       )
-      .alertManager(appAssembler.resolver.resolve(AlertManager.self)!)
-      .busyIndicator(appAssembler.resolver.resolve(BusyIndicatorServiceProtocol.self)!.busyIndicator)
+      .alertManager(appAssembler.resolver.resolved(AlertManager.self))
+      .busyIndicator(appAssembler.resolver.resolved(BusyIndicatorServiceProtocol.self).busyIndicator)
     }
   }
 }

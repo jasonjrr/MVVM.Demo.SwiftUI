@@ -33,7 +33,7 @@ class ColorWizardCoordinator: ViewModel {
     self.configurationViewModel = ColorWizardConfigurationViewModel(configuration: configuration)
   
     if let firstPageViewModel = self.configurationViewModel.pages.first {
-      self.rootContentViewModel = self.resolver.resolve(ColorWizardContentViewModel.self)!
+      self.rootContentViewModel = self.resolver.resolved(ColorWizardContentViewModel.self)
         .setup(pageViewModel: firstPageViewModel, delegate: self)
     } else {
       fatalError()
@@ -68,7 +68,7 @@ extension ColorWizardCoordinator: ColorWizardContentViewModelDelegate {
     }
     let nextPageViewModel = self.configurationViewModel.pages[newIndex]
     
-    self.path.append(self.resolver.resolve(ColorWizardContentViewModel.self)!
+    self.path.append(self.resolver.resolved(ColorWizardContentViewModel.self)
       .setup(pageViewModel: nextPageViewModel, delegate: self))
   }
   
