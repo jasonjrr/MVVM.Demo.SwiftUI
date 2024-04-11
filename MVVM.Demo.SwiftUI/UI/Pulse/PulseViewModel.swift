@@ -70,7 +70,7 @@ extension PulseViewModel {
       switch model {
       case .blue: self.color = .blue
       case .green: self.color = .green
-      case .orange: self.color = .green
+      case .orange: self.color = .orange
       case .pink: self.color = .pink
       case .purple: self.color = .purple
       case .red: self.color = .red

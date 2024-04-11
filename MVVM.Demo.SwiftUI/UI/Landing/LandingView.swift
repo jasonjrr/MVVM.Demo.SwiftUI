@@ -63,7 +63,7 @@ struct LandingView: View {
       switch $0 {
       case .blue: self.pulseColor = .blue
       case .green: self.pulseColor = .green
-      case .orange: self.pulseColor = .green
+      case .orange: self.pulseColor = .orange
       case .pink: self.pulseColor = .pink
       case .purple: self.pulseColor = .purple
       case .red: self.pulseColor = .red

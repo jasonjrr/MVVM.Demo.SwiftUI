@@ -13,8 +13,7 @@ struct ColorWizardContentView: View {
   var body: some View {
     ZStack {
       if let color = self.viewModel.color {
-        Rectangle()
-          .fill(Color.clear)
+        Color.clear
           .background(color)
       } else {
         ScrollView {
@@ -38,8 +37,6 @@ struct ColorWizardContentView: View {
           Button(action: { self.viewModel.moveBack() }) {
             Text("Back")
           }
-        } else {
-          EmptyView()
         }
       }
       ToolbarItem(placement: .navigationBarTrailing) {
@@ -51,8 +48,6 @@ struct ColorWizardContentView: View {
           Button(action: { self.viewModel.complete() }) {
             Text("Done")
           }
-        } else {
-          EmptyView()
         }
       }
     }
