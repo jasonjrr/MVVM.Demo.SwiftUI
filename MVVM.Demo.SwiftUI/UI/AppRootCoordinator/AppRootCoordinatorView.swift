@@ -18,20 +18,17 @@ struct AppRootCoordinatorView: View {
   
   var body: some View {
     ObjectNavigationStack(path: self.coordinator.path) {
-      ZStack {
-        LandingView(viewModel: self.coordinator.landingViewModel)
-          .zIndex(0)
-          .navigationDestination(for: PulseViewModel.self) {
-            PulseView(viewModel: $0)
-          }
-          .fullScreenCover(item: self.$colorWizardCoordinator) { coordinator in
-            ColorWizardCoordinatorView(coordinator: coordinator)
-          }
-        
-        if let viewModel = self.signInViewModel {
-          SignInView(viewModel: viewModel)
-            .zIndex(100)
+      LandingView(viewModel: self.coordinator.landingViewModel)
+        .navigationDestination(for: PulseViewModel.self) {
+          PulseView(viewModel: $0)
         }
+        .fullScreenCover(item: self.$colorWizardCoordinator) { coordinator in
+          ColorWizardCoordinatorView(coordinator: coordinator)
+        }
+    }
+    .overlay {
+      if let viewModel = self.signInViewModel {
+        SignInView(viewModel: viewModel)
       }
     }
     .navigationAlert(item: self.$alert)
