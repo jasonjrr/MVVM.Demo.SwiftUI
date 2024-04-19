@@ -1,12 +1,13 @@
 {
+  "originHash" : "27ef233dac445591899bc4493120379c64da9f3e5d682bb83c658828ff38ec5e",
   "pins" : [
     {
       "identity" : "busyindicator",
       "kind" : "remoteSourceControl",
       "location" : "git@github.com:jasonjrr/BusyIndicator.git",
       "state" : {
-        "revision" : "dd4d5e4160372accad6ff54beb69c3354c85f63b",
-        "version" : "1.0.0"
+        "revision" : "6c055630b41f7f0d1faaf67ad7a991e43460bbb6",
+        "version" : "1.1.0"
       }
     },
     {
@@ -28,5 +29,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

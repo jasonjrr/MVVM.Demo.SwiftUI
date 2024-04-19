@@ -1016,7 +1016,7 @@
 			repositoryURL = "git@github.com:jasonjrr/BusyIndicator.git";
 			requirement = {
 				kind = exactVersion;
-				version = 1.0.0;
+				version = 1.1.0;
 			};
 		};
 		96B4E0A027432EEE00EC88B3 /* XCRemoteSwiftPackageReference "CombineExt" */ = {
