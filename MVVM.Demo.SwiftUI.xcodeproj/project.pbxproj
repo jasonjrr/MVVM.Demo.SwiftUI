@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		6FD86CD9293DE9060052C759 /* ObjectNavigationStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD86CD8293DE9060052C759 /* ObjectNavigationStack.swift */; };
 		6FD86CDC2940033C0052C759 /* BusyIndicator in Frameworks */ = {isa = PBXBuildFile; productRef = 6FD86CDB2940033C0052C759 /* BusyIndicator */; };
+		6FDA2F112BE0573700A83DDB /* InfiniteCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDA2F102BE0573700A83DDB /* InfiniteCardsView.swift */; };
+		6FDA2F132BE0575000A83DDB /* InfiniteCardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDA2F122BE0575000A83DDB /* InfiniteCardsViewModel.swift */; };
 		6FF089B92BAC9387001C454E /* Resolver+Resolved.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF089B82BAC9387001C454E /* Resolver+Resolved.swift */; };
 		9647788B2774F0EE002203DE /* AnyPublisher+AwaitResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9647788A2774F0EE002203DE /* AnyPublisher+AwaitResults.swift */; };
 		964778902774F240002203DE /* AuthenticationService+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9647788F2774F240002203DE /* AuthenticationService+Tests.swift */; };
@@ -88,6 +90,8 @@
 /* Begin PBXFileReference section */
 		6FBF3B6729F10AA2008BB5B7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		6FD86CD8293DE9060052C759 /* ObjectNavigationStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectNavigationStack.swift; sourceTree = "<group>"; };
+		6FDA2F102BE0573700A83DDB /* InfiniteCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteCardsView.swift; sourceTree = "<group>"; };
+		6FDA2F122BE0575000A83DDB /* InfiniteCardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteCardsViewModel.swift; sourceTree = "<group>"; };
 		6FF089B82BAC9387001C454E /* Resolver+Resolved.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resolver+Resolved.swift"; sourceTree = "<group>"; };
 		9647788A2774F0EE002203DE /* AnyPublisher+AwaitResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyPublisher+AwaitResults.swift"; sourceTree = "<group>"; };
 		9647788F2774F240002203DE /* AuthenticationService+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthenticationService+Tests.swift"; sourceTree = "<group>"; };
@@ -176,6 +180,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6FDA2F0F2BE0572500A83DDB /* InfiniteCards */ = {
+			isa = PBXGroup;
+			children = (
+				6FDA2F102BE0573700A83DDB /* InfiniteCardsView.swift */,
+				6FDA2F122BE0575000A83DDB /* InfiniteCardsViewModel.swift */,
+			);
+			path = InfiniteCards;
+			sourceTree = "<group>";
+		};
 		964778892774F0C9002203DE /* TestExtensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -358,8 +371,9 @@
 		96B4E0C52743312600EC88B3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				9665D9532745C1B50055F1F6 /* ColorWizard */,
 				96B4E0C62743312F00EC88B3 /* AppRootCoordinator */,
+				9665D9532745C1B50055F1F6 /* ColorWizard */,
+				6FDA2F0F2BE0572500A83DDB /* InfiniteCards */,
 				96B4E0D22743381500EC88B3 /* Landing */,
 				96B4E0EC274424E800EC88B3 /* Pulse */,
 				96B4E0E027437C9000EC88B3 /* SignIn */,
@@ -632,6 +646,7 @@
 				96B4E09127432E1100EC88B3 /* ViewModel.swift in Sources */,
 				96B4E0C2274330CB00EC88B3 /* ServiceAssembly.swift in Sources */,
 				96B4E06527432D6100EC88B3 /* MVVM_Demo_SwiftUIApp.swift in Sources */,
+				6FDA2F132BE0575000A83DDB /* InfiniteCardsViewModel.swift in Sources */,
 				96B4E0A727432F1C00EC88B3 /* PassthroughSubject+Extensions.swift in Sources */,
 				96B4E09827432E7D00EC88B3 /* Just+Void.swift in Sources */,
 				9665D9552745C1D60055F1F6 /* ColorWizardCoordinatorView.swift in Sources */,
@@ -640,6 +655,7 @@
 				96B4E0D1274336EE00EC88B3 /* AlertService.swift in Sources */,
 				96B4E0BE2743309B00EC88B3 /* AppAssembler.swift in Sources */,
 				96B4E09C27432EB100EC88B3 /* Publisher+Extensions.swift in Sources */,
+				6FDA2F112BE0573700A83DDB /* InfiniteCardsView.swift in Sources */,
 				96B4E0F0274424FE00EC88B3 /* PulseViewModel.swift in Sources */,
 				96B4E0E227437CA200EC88B3 /* SignInView.swift in Sources */,
 				96B4E0DF2743396600EC88B3 /* ButtonTextStyle.swift in Sources */,

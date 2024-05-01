@@ -5,7 +5,7 @@
 //  Created by Jason Lew-Rapai on 11/15/21.
 //
 
-import Foundation
+import SwiftUI
 import Combine
 
 enum ColorModel {
@@ -17,6 +17,34 @@ enum ColorModel {
   case red
   case yellow
   case white
+}
+
+extension ColorModel {
+  func asColor() -> Color {
+    switch self {
+    case .blue: return .blue
+    case .green: return .green
+    case .orange: return .orange
+    case .pink: return .pink
+    case .purple: return .purple
+    case .red: return .red
+    case .white: return .white
+    case .yellow: return .yellow
+    }
+  }
+  
+  func asContrastColor() -> Color {
+    switch self {
+    case .blue: return .white
+    case .green: return .black
+    case .orange: return .white
+    case .pink: return .white
+    case .purple: return .white
+    case .red: return .white
+    case .white: return .black
+    case .yellow: return .black
+    }
+  }
 }
 
 protocol ColorServiceProtocol: AnyObject {

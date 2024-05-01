@@ -12,6 +12,7 @@ import SwiftUI
 protocol LandingViewModelDelegate: AnyObject {
   func landingViewModelDidTapPulse(_ source: LandingViewModel)
   func landingViewModelDidTapSignIn(_ source: LandingViewModel)
+  func landingViewModelDidTapInfiniteCards(_ source: LandingViewModel)
   func landingViewModelDidTapColorWizard(_ source: LandingViewModel)
 }
 
@@ -31,6 +32,7 @@ class LandingViewModel: ViewModel {
   
   let pulse: PassthroughSubject<Void, Never> = PassthroughSubject()
   let signInOrOut: PassthroughSubject<Void, Never> = PassthroughSubject()
+  let infiniteCards: PassthroughSubject<Void, Never> = PassthroughSubject()
   let colorWizard: PassthroughSubject<Void, Never> = PassthroughSubject()
   
   private var cancelBag: CancelBag!
@@ -78,6 +80,13 @@ class LandingViewModel: ViewModel {
           self.delegate?.landingViewModelDidTapSignIn(self)
         }
       }
+      .store(in: &self.cancelBag)
+    
+    self.infiniteCards
+      .sink(receiveValue: { [weak self] in
+        guard let self = self else { return }
+        self.delegate?.landingViewModelDidTapInfiniteCards(self)
+      })
       .store(in: &self.cancelBag)
     
     self.colorWizard

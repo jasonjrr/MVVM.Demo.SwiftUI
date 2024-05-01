@@ -14,6 +14,11 @@ class ViewModelAssembly: Assembly {
       ColorWizardContentViewModel()
     }.inObjectScope(.transient)
     
+    container.register(InfiniteCardsViewModel.self) { r in
+      InfiniteCardsViewModel(
+        colorService: r.resolved(ColorServiceProtocol.self))
+    }.inObjectScope(.transient)
+    
     container.register(LandingViewModel.self) { r in
       LandingViewModel(
         alertService: r.resolved(AlertServiceProtocol.self),

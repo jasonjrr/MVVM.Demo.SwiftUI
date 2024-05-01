@@ -18,6 +18,7 @@ class AppRootCoordinator: ViewModel {
   let path = ObjectNavigationPath()
   
   var signInViewModel: SignInViewModel?
+  var infiniteCardsViewModel: InfiniteCardsViewModel?
   var colorWizardCoordinator: ColorWizardCoordinator?
   
   init(resolver: Resolver) {
@@ -37,6 +38,11 @@ extension AppRootCoordinator: LandingViewModelDelegate {
   
   func landingViewModelDidTapSignIn(_ source: LandingViewModel) {
     self.signInViewModel = self.resolver.resolved(SignInViewModel.self)
+      .setup(delegate: self)
+  }
+  
+  func landingViewModelDidTapInfiniteCards(_ source: LandingViewModel) {
+    self.infiniteCardsViewModel = self.resolver.resolved(InfiniteCardsViewModel.self)
       .setup(delegate: self)
   }
   
@@ -60,6 +66,13 @@ extension AppRootCoordinator: SignInViewModelDelegate {
 // MARK: PulseViewModelDelegate
 extension AppRootCoordinator: PulseViewModelDelegate {
   // Nothing yet
+}
+
+// MARK: InfiniteCardsViewModelDelegate
+extension AppRootCoordinator: InfiniteCardsViewModel.Delegate {
+  func infiniteCardsViewModelDidClose(_ sender: InfiniteCardsViewModel) {
+    self.infiniteCardsViewModel = nil
+  }
 }
 
 // MARK: ColorWizardCoordinatorDelegate
