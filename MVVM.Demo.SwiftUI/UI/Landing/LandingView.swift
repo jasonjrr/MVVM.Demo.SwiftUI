@@ -13,7 +13,7 @@ struct LandingView: View {
   
   private let buttonMinHeight: CGFloat = 54.0
   
-  @State var viewModel: LandingViewModel
+  @Bindable var viewModel: LandingViewModel
   
   @State private var isAuthenticated: Bool = false
   @State private var username: String = .empty

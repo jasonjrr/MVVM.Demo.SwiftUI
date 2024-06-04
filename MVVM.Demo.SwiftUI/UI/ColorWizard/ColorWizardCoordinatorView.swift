@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ColorWizardCoordinatorView: View {
-  @State var coordinator: ColorWizardCoordinator
+  @Bindable var coordinator: ColorWizardCoordinator
   
   var body: some View {
     ObjectNavigationStack(path: self.coordinator.path) {

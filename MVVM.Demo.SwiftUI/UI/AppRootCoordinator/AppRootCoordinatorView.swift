@@ -10,7 +10,7 @@ import SwiftUI
 struct AppRootCoordinatorView: View {
   @Environment(\.alertManager) var alertManager: AlertManager
   
-  @State var coordinator: AppRootCoordinator
+  @Bindable var coordinator: AppRootCoordinator
   
   @State private var colorWizardCoordinator: ColorWizardCoordinator?
   @State private var infiniteCardsViewModel: InfiniteCardsViewModel?
