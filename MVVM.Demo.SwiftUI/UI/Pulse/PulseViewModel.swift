@@ -9,35 +9,24 @@ import Foundation
 import Combine
 import SwiftUI
 
-protocol PulseViewModelDelegate: AnyObject {}
-
-@Observable
-class PulseViewModel: ViewModel {
-  private let authenticationService: AuthenticationServiceProtocol
-  private let colorService: ColorServiceProtocol
-  private weak var delegate: PulseViewModelDelegate?
+@Observable @MainActor
+final class PulseViewModel: ViewModel {
+  @ObservationIgnored private let authenticationService: AuthenticationServiceProtocol
+  @ObservationIgnored private let colorService: ColorServiceProtocol
+  @ObservationIgnored private weak var delegate: Delegate?
   
   private(set) var colors: [ColorItem] = []
+  private(set) var title: String = "Hello, mysterious stranger"
   
-  var title: AnyPublisher<String, Never> {
-    self.authenticationService.user
-      .map {
-        if let username = $0?.username {
-          return "Welcome, \(username)"
-        }
-        return "Hello, mysterious stranger"
-      }
-      .eraseToAnyPublisher()
-  }
-  
-  private var cancelBag: CancelBag!
+  @ObservationIgnored private var cancelBag: CancelBag = CancelBag()
   
   init(authenticationService: AuthenticationServiceProtocol, colorService: ColorServiceProtocol) {
     self.authenticationService = authenticationService
     self.colorService = colorService
   }
   
-  func setup(delegate: PulseViewModelDelegate) -> Self {
+  @discardableResult
+  func setup(delegate: Delegate) -> Self {
     self.delegate = delegate
     bind()
     return self
@@ -46,8 +35,21 @@ class PulseViewModel: ViewModel {
   private func bind() {
     self.cancelBag = CancelBag()
     
+    self.authenticationService.user
+      .map {
+        if let username = $0?.username {
+          return "Welcome, \(username)"
+        }
+        return "Hello, mysterious stranger"
+      }
+      .receive(on: RunLoop.main)
+      .sink { [weak self] title in
+        self?.title = title
+      }
+      .store(in: &self.cancelBag)
+    
     self.colorService.generateColors()
-      .receive(on: .main)
+      .receive(on: RunLoop.main)
       .sink(receiveValue: { [weak self] in
         guard let self = self else { return }
         self.colors.insert(ColorItem(color: $0), at: 0)
@@ -60,8 +62,12 @@ class PulseViewModel: ViewModel {
 }
 
 extension PulseViewModel {
-  @Observable
-  class ColorItem: ViewModel {
+  @MainActor protocol Delegate: AnyObject {}
+}
+
+extension PulseViewModel {
+  @Observable @MainActor
+  final class ColorItem: ViewModel {
     let id: String = UUID().uuidString
     let color: Color
     var opacity: Double = 0.0

@@ -1,56 +1,66 @@
 //
-//  ObjectNavigationStack.swift
+//  CoordinatorNavigationStack.swift
 //  MVVM.Demo.SwiftUI
 //
-//  Created by Jason Lew-Rapai on 12/5/22.
+//  Created by Jason Lew-Rapai on 11/15/21.
 //
 
 import SwiftUI
 
-struct ObjectNavigationStack<Content>: View where Content : View {
-  @State var path: ObjectNavigationPath
-  let content: () -> Content
-  
+struct CoordinatorNavigationStack<Content>: View where Content : View {
+  @Bindable var path: CoordinatorNavigationPath
+  let content: Content
+
+  init(path: CoordinatorNavigationPath, @ViewBuilder content: () -> Content) {
+    self.path = path
+    self.content = content()
+  }
+
   var body: some View {
-    NavigationStack(path: self.$path.path, root: self.content)
+    NavigationStack(path: self.$path.path) {
+      self.content
+    }
+    .onChange(of: self.path.path) { oldValue, newValue in
+      // Keeps `objects` in step when the user pops with the back button or a swipe.
+      if oldValue.count == newValue.count + 1
+          && self.path.objectCount == oldValue.count {
+        self.path.removeLastObjectOnly()
+      }
+    }
   }
 }
 
-@Observable
-class ObjectNavigationPath {
+@Observable @MainActor
+final class CoordinatorNavigationPath {
   typealias NavigationObject = AnyObject & Hashable & Equatable
   fileprivate var path: NavigationPath = NavigationPath()
   private var objects: [any NavigationObject] = []
-  
-  private let semaphore: DispatchSemaphore = DispatchSemaphore(value: 1)
-  
+  fileprivate var objectCount: Int { self.objects.count }
+
   var last: (any NavigationObject)? {
     self.objects.last
   }
-  
+
   func append(_ object: some NavigationObject) {
-    self.semaphore.wait()
     self.objects.append(object)
     self.path.append(object)
-    self.semaphore.signal()
   }
-  
+
+  func removeAll() {
+    self.objects.removeAll()
+    self.path.removeLast(self.path.count)
+  }
+
   func removeLast() {
-    self.semaphore.wait()
     self.objects.removeLast()
     self.path.removeLast()
-    self.semaphore.signal()
   }
-  
+
   @discardableResult
   func removeLast<Element : NavigationObject>(through graphObject: Element) -> Element? {
-    self.semaphore.wait()
     var removeCount: Int = 0
-    defer {
-      self.path.removeLast(removeCount)
-      self.semaphore.signal()
-    }
-    
+    defer { self.path.removeLast(removeCount) }
+
     while let object = self.objects.popLast() {
       removeCount = removeCount + 1
       if graphObject === object {
@@ -59,16 +69,12 @@ class ObjectNavigationPath {
     }
     return nil
   }
-  
+
   @discardableResult
   func removeLast(through clause: (any NavigationObject) -> Bool) -> (any NavigationObject)? {
-    self.semaphore.wait()
     var removeCount: Int = 0
-    defer {
-      self.path.removeLast(removeCount)
-      self.semaphore.signal()
-    }
-    
+    defer { self.path.removeLast(removeCount) }
+
     while let object = self.objects.popLast() {
       removeCount = removeCount + 1
       if clause(object) {
@@ -77,5 +83,8 @@ class ObjectNavigationPath {
     }
     return nil
   }
-}
 
+  fileprivate func removeLastObjectOnly() {
+    self.objects.removeLast()
+  }
+}

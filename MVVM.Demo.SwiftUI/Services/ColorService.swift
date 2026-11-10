@@ -7,8 +7,9 @@
 
 import SwiftUI
 import Combine
+import os
 
-enum ColorModel {
+enum ColorModel: Sendable {
   case blue
   case green
   case orange
@@ -47,7 +48,7 @@ extension ColorModel {
   }
 }
 
-protocol ColorServiceProtocol: AnyObject {
+protocol ColorServiceProtocol: AnyObject, Sendable {
   func getNextColor() -> ColorModel
   func generateColors(runLoop: RunLoop) -> AnyPublisher<ColorModel, Never>
 }
@@ -58,12 +59,15 @@ extension ColorServiceProtocol {
   }
 }
 
-class ColorService: ColorServiceProtocol {
-  private var index: Int = 0
+final class ColorService: ColorServiceProtocol {
+  private let index: OSAllocatedUnfairLock<Int> = OSAllocatedUnfairLock(initialState: 0)
   
   func getNextColor() -> ColorModel {
-    let selection = self.index % 7
-    self.index = self.index + 1
+    let selection = self.index.withLock { index in
+      let current = index
+      index = index + 1
+      return current % 7
+    }
     switch selection {
     case 0: return .blue
     case 1: return .green

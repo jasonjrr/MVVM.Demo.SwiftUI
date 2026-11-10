@@ -8,11 +8,11 @@
 import UIKit
 import SwiftUI
 
-private let impactLightFeedbackGenerator: UIImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
-private let impactMediumFeedbackGenerator: UIImpactFeedbackGenerator = UIImpactFeedbackGenerator()
-private let impactHeavyFeedbackGenerator: UIImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
-private let selectionFeedbackGenerator: UISelectionFeedbackGenerator = UISelectionFeedbackGenerator()
-private let notificationFeedbackGenerator: UINotificationFeedbackGenerator = UINotificationFeedbackGenerator()
+@MainActor private let impactLightFeedbackGenerator: UIImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+@MainActor private let impactMediumFeedbackGenerator: UIImpactFeedbackGenerator = UIImpactFeedbackGenerator()
+@MainActor private let impactHeavyFeedbackGenerator: UIImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
+@MainActor private let selectionFeedbackGenerator: UISelectionFeedbackGenerator = UISelectionFeedbackGenerator()
+@MainActor private let notificationFeedbackGenerator: UINotificationFeedbackGenerator = UINotificationFeedbackGenerator()
 
 enum HapticFeedbackStyle {
   case impactLight
@@ -34,7 +34,7 @@ extension HapticFeedbackProvider {
   }
   
   static func hapticFeedback(_ style: HapticFeedbackStyle) {
-    DispatchQueue.main.async {
+    Task { @MainActor in
       switch style {
       case .impactLight:
         impactLightFeedbackGenerator.impactOccurred()

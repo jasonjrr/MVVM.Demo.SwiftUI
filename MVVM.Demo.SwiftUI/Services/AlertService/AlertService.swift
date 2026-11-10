@@ -9,20 +9,20 @@ import Foundation
 import Combine
 
 // MARK: AlertManager
-@Observable
-public class AlertManager: Equatable {
+@Observable @MainActor
+final class AlertManager: Equatable {
   var alert: AlertService.AlertPackage? {
     didSet { self.alert$.send(self.alert) }
   }
   let alert$: CurrentValueSubject<AlertService.AlertPackage?, Never> = CurrentValueSubject(nil)
   
-  static public func ==(lhs: AlertManager, rhs: AlertManager) -> Bool {
+  nonisolated static func ==(lhs: AlertManager, rhs: AlertManager) -> Bool {
     lhs === rhs
   }
 }
 
 // MARK: AlertServiceProtocol
-protocol AlertServiceProtocol: AnyObject {
+protocol AlertServiceProtocol: AnyObject, Sendable {
   func present(title: String, message: String?, dismissButton: AlertService.AlertPackage.Button?)
   func present(title: String, message: String?, primaryButton: AlertService.AlertPackage.Button, secondaryButton: AlertService.AlertPackage.Button)
 }
@@ -37,7 +37,7 @@ extension AlertServiceProtocol {
   }
 }
 
-class AlertService: AlertServiceProtocol {
+final class AlertService: AlertServiceProtocol {
   private let manager: AlertManager
   
   init(alertManager: AlertManager) {
@@ -46,21 +46,21 @@ class AlertService: AlertServiceProtocol {
   
   func present(title: String, message: String?, dismissButton: AlertService.AlertPackage.Button?) {
     let alert = AlertPackage(title: title, message: message, dismissButton: dismissButton)
-    DispatchQueue.main.async {
+    Task { @MainActor in
       self.manager.alert = alert
     }
   }
   
   func present(title: String, message: String?, primaryButton: AlertService.AlertPackage.Button, secondaryButton: AlertService.AlertPackage.Button) {
     let alert = AlertPackage(title: title, message: message, primaryButton: primaryButton, secondaryButton: secondaryButton)
-    DispatchQueue.main.async {
+    Task { @MainActor in
       self.manager.alert = alert
     }
   }
 }
 
 extension AlertService {
-  struct AlertPackage: Identifiable, Equatable {
+  struct AlertPackage: Identifiable, Equatable, Sendable {
     let id: UUID = UUID()
     let title: String
     let message: String?
@@ -88,7 +88,7 @@ extension AlertService {
 }
 
 extension AlertService.AlertPackage {
-  struct Button {
+  struct Button: Sendable {
     enum Role {
       case `default`
       case cancel
@@ -97,17 +97,17 @@ extension AlertService.AlertPackage {
     
     let role: Role
     let title: String
-    let action: (() -> Void)?
+    let action: (@MainActor @Sendable () -> Void)?
     
-    static func `default`(_ title: String, action: (() -> Void)?) -> AlertService.AlertPackage.Button {
+    static func `default`(_ title: String, action: (@MainActor @Sendable () -> Void)?) -> AlertService.AlertPackage.Button {
       AlertService.AlertPackage.Button(role: .default, title: title, action: action)
     }
     
-    static func cancel(_ title: String = "Cancel", action: (() -> Void)? = nil) -> AlertService.AlertPackage.Button {
+    static func cancel(_ title: String = "Cancel", action: (@MainActor @Sendable () -> Void)? = nil) -> AlertService.AlertPackage.Button {
       AlertService.AlertPackage.Button(role: .cancel, title: title, action: action)
     }
     
-    static func destructive(_ title: String, action: (() -> Void)?) -> AlertService.AlertPackage.Button {
+    static func destructive(_ title: String, action: (@MainActor @Sendable () -> Void)?) -> AlertService.AlertPackage.Button {
       AlertService.AlertPackage.Button(role: .destructive, title: title, action: action)
     }
   }

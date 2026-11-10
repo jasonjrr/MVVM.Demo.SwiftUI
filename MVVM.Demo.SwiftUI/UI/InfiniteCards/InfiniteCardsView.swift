@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct InfiniteCardsView: View {
-  @Bindable var viewModel: InfiniteCardsViewModel
+  @Bindable private var viewModel: InfiniteCardsViewModel
+  
+  init(viewModel: InfiniteCardsViewModel) {
+    self.viewModel = viewModel
+  }
   
   var body: some View {
     ScrollView(.horizontal) {
@@ -42,10 +46,14 @@ struct InfiniteCardsView: View {
 
 extension InfiniteCardsView {
   struct CardView: View {
-    @ScaledMetric var cardPadding: CGFloat = 8.0
+    @ScaledMetric private var cardPadding: CGFloat = 8.0
     @ScaledMetric private var cornerRadius: CGFloat = 16.0
     
-    @Bindable var viewModel: InfiniteCardsViewModel.CardViewModel
+    @Bindable private var viewModel: InfiniteCardsViewModel.CardViewModel
+    
+    init(viewModel: InfiniteCardsViewModel.CardViewModel) {
+      self.viewModel = viewModel
+    }
     
     var body: some View {
       RoundedRectangle(cornerRadius: self.cornerRadius, style: .continuous)

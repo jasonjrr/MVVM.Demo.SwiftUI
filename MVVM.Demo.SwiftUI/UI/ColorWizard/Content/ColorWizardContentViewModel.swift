@@ -8,20 +8,10 @@
 import Foundation
 import SwiftUI
 
-protocol ColorWizardContentViewModelDelegate: AnyObject {
-  func colorWizardContentViewModel(_ source: ColorWizardContentViewModel, canMoveBackFromIndex index: Int) -> Bool
-  func colorWizardContentViewModel(_ source: ColorWizardContentViewModel, canMoveForwardFromIndex index: Int) -> Bool
-  func colorWizardContentViewModel(_ source: ColorWizardContentViewModel, canCompleteFromIndex index: Int) -> Bool
-  
-  func colorWizardContentViewModel(_ source: ColorWizardContentViewModel, didMoveBackFromIndex index: Int)
-  func colorWizardContentViewModel(_ source: ColorWizardContentViewModel, didMoveForwardFromIndex index: Int)
-  func colorWizardContentViewModel(_ source: ColorWizardContentViewModel, didCompleteFromIndex index: Int)
-}
-
-@Observable
-class ColorWizardContentViewModel: ViewModel {
-  private var pageViewModel: ColorWizardConfigurationViewModel.PageViewModel!
-  private weak var delegate: ColorWizardContentViewModelDelegate?
+@Observable @MainActor
+final class ColorWizardContentViewModel: ViewModel {
+  @ObservationIgnored private var pageViewModel: ColorWizardConfigurationViewModel.PageViewModel!
+  @ObservationIgnored private weak var delegate: Delegate?
   
   var index: Int { self.pageViewModel.index }
   var title: String { self.pageViewModel.title }
@@ -41,7 +31,7 @@ class ColorWizardContentViewModel: ViewModel {
   }
   
   @discardableResult
-  func setup(pageViewModel: ColorWizardConfigurationViewModel.PageViewModel, delegate: ColorWizardContentViewModelDelegate?) -> Self {
+  func setup(pageViewModel: ColorWizardConfigurationViewModel.PageViewModel, delegate: Delegate?) -> Self {
     self.pageViewModel = pageViewModel
     self.delegate = delegate
     return self
@@ -57,5 +47,17 @@ class ColorWizardContentViewModel: ViewModel {
   
   func complete() {
     self.delegate?.colorWizardContentViewModel(self, didCompleteFromIndex: self.index)
+  }
+}
+
+extension ColorWizardContentViewModel {
+  @MainActor protocol Delegate: AnyObject {
+    func colorWizardContentViewModel(_ source: ColorWizardContentViewModel, canMoveBackFromIndex index: Int) -> Bool
+    func colorWizardContentViewModel(_ source: ColorWizardContentViewModel, canMoveForwardFromIndex index: Int) -> Bool
+    func colorWizardContentViewModel(_ source: ColorWizardContentViewModel, canCompleteFromIndex index: Int) -> Bool
+  
+    func colorWizardContentViewModel(_ source: ColorWizardContentViewModel, didMoveBackFromIndex index: Int)
+    func colorWizardContentViewModel(_ source: ColorWizardContentViewModel, didMoveForwardFromIndex index: Int)
+    func colorWizardContentViewModel(_ source: ColorWizardContentViewModel, didCompleteFromIndex index: Int)
   }
 }

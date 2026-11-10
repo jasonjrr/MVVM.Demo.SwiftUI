@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct ColorWizardContentView: View {
-  @Bindable var viewModel: ColorWizardContentViewModel
+  @Bindable private var viewModel: ColorWizardContentViewModel
+  
+  init(viewModel: ColorWizardContentViewModel) {
+    self.viewModel = viewModel
+  }
   
   var body: some View {
     ZStack {

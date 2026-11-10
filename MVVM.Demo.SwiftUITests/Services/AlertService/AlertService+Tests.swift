@@ -8,6 +8,7 @@
 import XCTest
 @testable import MVVM_Demo_SwiftUI
 
+@MainActor
 class AlertServiceTest: XCTestCase {
   var alertManager = AlertManager()
   var subject: AlertService!
@@ -31,17 +32,15 @@ class AlertService_when_buildAlert_title_message_dismissButton_and_dismissButton
     self.expectedTitle = "test.title"
     self.expectedMessage = "test.message"
     
-    var iterator = self.alertManager.alert$
-      .compactMap { $0 }
-      .values
-      .makeAsyncIterator()
-    
     self.subject.present(
       title: self.expectedTitle,
       message: self.expectedMessage,
       dismissButton: nil)
     
-    self.actualAlertPackage = await iterator.next()
+    for await alertPackage in self.alertManager.alert$.compactMap({ @Sendable in $0 }).values {
+      self.actualAlertPackage = alertPackage
+      break
+    }
   }
   
   func test_then_package_title_is_expected() {
@@ -92,17 +91,15 @@ class AlertService_when_buildAlert_title_message_dismissButton_and_dismissButton
       title: "button.title",
       action: nil)
     
-    var iterator = self.alertManager.alert$
-      .compactMap { $0 }
-      .values
-      .makeAsyncIterator()
-    
     self.subject.present(
       title: self.expectedTitle,
       message: self.expectedMessage,
       dismissButton: self.expectedButton)
     
-    self.actualAlertPackage = await iterator.next()
+    for await alertPackage in self.alertManager.alert$.compactMap({ @Sendable in $0 }).values {
+      self.actualAlertPackage = alertPackage
+      break
+    }
   }
   
   func test_then_package_title_is_expected() {
@@ -151,18 +148,16 @@ class AlertService_when_buildAlert_title_message_primaryButton_secondaryButton_i
       title: "button.title.secondary",
       action: nil)
     
-    var iterator = self.alertManager.alert$
-      .compactMap { $0 }
-      .values
-      .makeAsyncIterator()
-    
     self.subject.present(
       title: self.expectedTitle,
       message: self.expectedMessage,
       primaryButton: self.expectedPrimaryButton,
       secondaryButton: self.expectedSecondaryButton)
     
-    self.actualAlertPackage = await iterator.next()
+    for await alertPackage in self.alertManager.alert$.compactMap({ @Sendable in $0 }).values {
+      self.actualAlertPackage = alertPackage
+      break
+    }
   }
   
   func test_then_package_title_is_expected() {

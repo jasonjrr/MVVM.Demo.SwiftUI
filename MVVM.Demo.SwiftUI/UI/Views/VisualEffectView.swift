@@ -43,7 +43,7 @@ final class UIProgressiveVisualEffectView: UIVisualEffectView {
   
   required init?(coder aDecoder: NSCoder) { nil }
   
-  deinit {
+  isolated deinit {
     self.animator?.stopAnimation(true)
   }
   

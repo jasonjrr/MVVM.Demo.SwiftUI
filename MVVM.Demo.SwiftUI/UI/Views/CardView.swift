@@ -51,17 +51,15 @@ extension CardView {
   }
 }
 
-struct CardView_Previews: PreviewProvider {
-  static var previews: some View {
-    return CardView(
-      color: Color.green,
-      cornerRadius: .medium) {
-        Text("Card contents.")
-          .padding()
-          .background(Color.orange)
-      }
-      .clipped()
-      .shadow(radius: 10)
-      .padding()
-  }
+#Preview {
+  CardView(
+    color: Color.green,
+    cornerRadius: .medium) {
+      Text("Card contents.")
+        .padding()
+        .background(Color.orange)
+    }
+    .clipped()
+    .shadow(radius: 10)
+    .padding()
 }

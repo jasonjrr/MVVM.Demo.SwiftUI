@@ -7,11 +7,11 @@
 
 import Foundation
 
-@Observable
-class InfiniteCardsViewModel: ViewModel {
-  private let colorService: ColorServiceProtocol
+@Observable @MainActor
+final class InfiniteCardsViewModel: ViewModel {
+  @ObservationIgnored private let colorService: ColorServiceProtocol
   
-  private weak var delegate: InfiniteCardsViewModel.Delegate?
+  @ObservationIgnored private weak var delegate: Delegate?
   
   private(set) var cards: [CardViewModel] = []
   
@@ -20,7 +20,8 @@ class InfiniteCardsViewModel: ViewModel {
     fetchNextBatch()
   }
   
-  func setup(delegate: InfiniteCardsViewModel.Delegate) -> Self {
+  @discardableResult
+  func setup(delegate: Delegate) -> Self {
     self.delegate = delegate
     return self
   }
@@ -43,14 +44,14 @@ class InfiniteCardsViewModel: ViewModel {
 }
 
 extension InfiniteCardsViewModel {
-  protocol Delegate: AnyObject {
+  @MainActor protocol Delegate: AnyObject {
     func infiniteCardsViewModelDidClose(_ sender: InfiniteCardsViewModel)
   }
 }
 
 extension InfiniteCardsViewModel {
-  @Observable
-  class CardViewModel: Identifiable {
+  @Observable @MainActor
+  final class CardViewModel: Identifiable {
     let id = UUID()
     let colorModel: ColorModel
     var shouldFetchNextBatch: Bool

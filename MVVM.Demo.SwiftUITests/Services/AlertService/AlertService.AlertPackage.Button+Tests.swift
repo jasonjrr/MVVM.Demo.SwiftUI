@@ -16,7 +16,7 @@ class AlertServiceAlertPackageButton_when_constructed: AlertServiceAlertPackageB
   
   var expectedRole: AlertService.AlertPackage.Button.Role!
   var expectedTitle: String!
-  var expectedAction: (() -> Void)?
+  var expectedAction: (@MainActor @Sendable () -> Void)?
   
   override func setUp() {
     super.setUp()
@@ -46,7 +46,7 @@ class AlertServiceAlertPackageButton_when_constructed: AlertServiceAlertPackageB
 
 class AlertServiceAlertPackageButton_when_default_button_is_created: AlertServiceAlertPackageButtonTest {
   var expectedTitle: String!
-  var expectedAction: (() -> Void)?
+  var expectedAction: (@MainActor @Sendable () -> Void)?
   
   override func setUp() {
     super.setUp()
@@ -74,7 +74,7 @@ class AlertServiceAlertPackageButton_when_default_button_is_created: AlertServic
 
 class AlertServiceAlertPackageButton_when_cancel_button_is_created: AlertServiceAlertPackageButtonTest {
   var expectedTitle: String!
-  var expectedAction: (() -> Void)?
+  var expectedAction: (@MainActor @Sendable () -> Void)?
   
   override func setUp() {
     super.setUp()
@@ -102,7 +102,7 @@ class AlertServiceAlertPackageButton_when_cancel_button_is_created: AlertService
 
 class AlertServiceAlertPackageButton_when_destructive_button_is_created: AlertServiceAlertPackageButtonTest {
   var expectedTitle: String!
-  var expectedAction: (() -> Void)?
+  var expectedAction: (@MainActor @Sendable () -> Void)?
   
   override func setUp() {
     super.setUp()

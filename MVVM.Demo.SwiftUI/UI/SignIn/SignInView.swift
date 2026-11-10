@@ -11,15 +11,18 @@ struct SignInView: View {
   @ScaledMetric private var buttonFontSize: CGFloat = 18.0
   @ScaledMetric private var inverseCardPadding: CGFloat = 16.0
   
-  @Bindable var viewModel: SignInViewModel
+  @Bindable private var viewModel: SignInViewModel
   
   @State private var showCard: Bool = false
-  @State private var signInDisabled: Bool = true
   
   @FocusState private var focusState: FocusField?
   enum FocusField {
     case username
     case password
+  }
+  
+  init(viewModel: SignInViewModel) {
+    self.viewModel = viewModel
   }
   
   var body: some View {
@@ -81,7 +84,7 @@ struct SignInView: View {
                   .frame(maxWidth: .infinity, minHeight: 48.0)
                   .contentShape(Rectangle())
               }
-              .disabled(self.signInDisabled)
+              .disabled(!self.viewModel.canSignIn)
               
             }
             .padding(.bottom)
@@ -104,22 +107,10 @@ struct SignInView: View {
         self.focusState = .username
       }
     }
-    .onReceive(self.viewModel.canSignIn) {
-      self.signInDisabled = !$0
-    }
   }
 }
 
-#if DEBUG
-struct SignInView_Previews: PreviewProvider {
-  static let appAssembler = AppAssembler()
-  static let viewModel = appAssembler.resolver.resolved(SignInViewModel.self)
-  
-  static var previews: some View {
-    Group {
-      SignInView(viewModel: viewModel)
-        .edgesIgnoringSafeArea(.all)
-    }
-  }
+#Preview {
+  SignInView(viewModel: AppAssembler().resolver.resolved(SignInViewModel.self))
+    .edgesIgnoringSafeArea(.all)
 }
-#endif

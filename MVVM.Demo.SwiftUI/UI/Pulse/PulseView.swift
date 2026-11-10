@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct PulseView: View {
-  @Bindable var viewModel: PulseViewModel
+  @Bindable private var viewModel: PulseViewModel
   
-  @State private var title: String = .empty
+  init(viewModel: PulseViewModel) {
+    self.viewModel = viewModel
+  }
   
   var body: some View {
     ZStack {
@@ -22,18 +24,19 @@ struct PulseView: View {
           )
       }
     }
-    .navigationTitle(self.title)
+    .navigationTitle(self.viewModel.title)
     .navigationBarTitleDisplayMode(.inline)
     .overlay(.thinMaterial)
-    .onReceive(self.viewModel.title.receive(on: .main)) {
-      self.title = $0
-    }
   }
 }
 
 extension PulseView {
   struct PulseCircle: View {
-    @Bindable var viewModel: PulseViewModel.ColorItem
+    @Bindable private var viewModel: PulseViewModel.ColorItem
+    
+    init(viewModel: PulseViewModel.ColorItem) {
+      self.viewModel = viewModel
+    }
     
     var body: some View {
       Circle()

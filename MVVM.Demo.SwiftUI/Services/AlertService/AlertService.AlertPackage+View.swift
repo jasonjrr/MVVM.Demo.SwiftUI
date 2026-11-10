@@ -7,34 +7,6 @@
 
 import SwiftUI
 
-extension AlertService.AlertPackage {
-  func alert() -> SwiftUI.Alert {
-    if let secondaryButton = self.secondaryButton {
-      return SwiftUI.Alert(
-        title: Text(self.title),
-        message: self.message == nil ? nil : Text(self.message!),
-        primaryButton: button(self.primaryButton),
-        secondaryButton: button(secondaryButton))
-    } else {
-      return SwiftUI.Alert(
-        title: Text(self.title),
-        message: self.message == nil ? nil : Text(self.message!),
-        dismissButton: button(self.primaryButton))
-    }
-  }
-  
-  private func button(_ button: AlertService.AlertPackage.Button) -> SwiftUI.Alert.Button {
-    switch button.role {
-    case .default:
-      return .default(Text(button.title), action: button.action)
-    case .cancel:
-      return .cancel(Text(button.title), action: button.action)
-    case .destructive:
-      return .destructive(Text(button.title), action: button.action)
-    }
-  }
-}
-
 // MARK: ButtonRole
 
 extension AlertService.AlertPackage.Button.Role {

@@ -7,6 +7,7 @@
 
 import XCTest
 
+@MainActor
 class MVVM_Demo_SwiftUIUITests: XCTestCase {
 
     override func setUpWithError() throws {

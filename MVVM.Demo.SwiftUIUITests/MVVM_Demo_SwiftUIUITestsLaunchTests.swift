@@ -7,6 +7,7 @@
 
 import XCTest
 
+@MainActor
 class MVVM_Demo_SwiftUIUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {

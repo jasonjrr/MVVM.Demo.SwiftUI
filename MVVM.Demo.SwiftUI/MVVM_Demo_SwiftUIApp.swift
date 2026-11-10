@@ -8,17 +8,16 @@
 import SwiftUI
 import BusyIndicator
 
-private let appAssembler: AppAssembler = AppAssembler()
-
 @main
 struct MVVM_Demo_SwiftUIApp: App {
+  private let appAssembler: AppAssembler = AppAssembler()
+  
   var body: some Scene {
     WindowGroup {
-      AppRootCoordinatorView(
-        coordinator: appAssembler.resolver.resolved(AppRootCoordinator.self)
-      )
-      .alertManager(appAssembler.resolver.resolved(AlertManager.self))
-      .busyIndicator(appAssembler.resolver.resolved(BusyIndicatorServiceProtocol.self).busyIndicator)
+      AppNavigationCoordinatorView(
+        coordinator: self.appAssembler.resolver.resolved(AppNavigationCoordinatorViewModel.self))
+      .environment(self.appAssembler.resolver.resolved(AlertManager.self))
+      .busyIndicator(self.appAssembler.resolver.resolved(BusyIndicatorServiceProtocol.self).busyIndicator)
     }
   }
 }

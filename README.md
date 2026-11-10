@@ -1,5 +1,10 @@
 # MVVM.Demo.SwiftUI
  
+## Getting Started
+- Xcode 27 or later, iOS 17+ deployment target, Swift 6 (strict concurrency).
+- Open `MVVM.Demo.SwiftUI.xcodeproj` (an Xcode 27 JSON project, `project.xcproj`), pick a simulator and Run. Packages resolve automatically.
+- `CLAUDE.md` files throughout the tree describe the architecture and conventions for AI coding assistants. Point your assistant at them before asking it to add a feature.
+
 # MVVM - Model View ViewModel
 MVVM Wiki: https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel
 
@@ -26,7 +31,7 @@ MVVM Wiki: https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel
 <sup>1</sup> No meaningful state is stored within the view. Anything needed by the model layer is immediately sent to the ViewModel from the View.
 
 # Coordinators
-- Coordinators are aware of the user’s navigation context within the app
+- Coordinators (`*CoordinatorViewModel` + `*CoordinatorView`) are aware of the user’s navigation context within the app
 - Primarily responsible for Navigation and ViewModel injection
 - Can contain child coordinators which are responsible for a narrowed context
 - Only object to have a reference to the Dependency Injection container/resolver

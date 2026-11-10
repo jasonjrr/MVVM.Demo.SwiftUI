@@ -1,26 +1,21 @@
 //
-//  ColorWizardCoordinator.swift
+//  ColorWizardCoordinatorViewModel.swift
 //  MVVM.Demo.SwiftUI
 //
 //  Created by Jason Lew-Rapai on 11/17/21.
 //
 
 import Foundation
-import Combine
 import Swinject
 
-protocol ColorWizardCoordinatorDelegate: AnyObject {
-  func colorWizardCoordinatorDidComplete(_ source: ColorWizardCoordinator)
-}
-
-@Observable
-class ColorWizardCoordinator: ViewModel {
-  private let resolver: Resolver
+@Observable @MainActor
+final class ColorWizardCoordinatorViewModel: ViewModel {
+  @ObservationIgnored private let resolver: Resolver
   
-  private weak var delegate: ColorWizardCoordinatorDelegate?
-  private var configurationViewModel: ColorWizardConfigurationViewModel!
+  @ObservationIgnored private weak var delegate: Delegate?
+  @ObservationIgnored private var configurationViewModel: ColorWizardConfigurationViewModel!
   
-  let path = ObjectNavigationPath()
+  let path: CoordinatorNavigationPath = CoordinatorNavigationPath()
   
   private(set) var rootContentViewModel: ColorWizardContentViewModel!
   
@@ -28,7 +23,8 @@ class ColorWizardCoordinator: ViewModel {
     self.resolver = resolver
   }
   
-  func setup(configuration: ColorWizardConfiguration, delegate: ColorWizardCoordinatorDelegate) -> Self {
+  @discardableResult
+  func setup(configuration: ColorWizardConfiguration, delegate: Delegate) -> Self {
     self.delegate = delegate
     self.configurationViewModel = ColorWizardConfigurationViewModel(configuration: configuration)
   
@@ -43,8 +39,14 @@ class ColorWizardCoordinator: ViewModel {
   }
 }
 
-// MARK: ColorWizardContentViewModelDelegate
-extension ColorWizardCoordinator: ColorWizardContentViewModelDelegate {
+extension ColorWizardCoordinatorViewModel {
+  @MainActor protocol Delegate: AnyObject {
+    func colorWizardCoordinatorViewModelDidComplete(_ source: ColorWizardCoordinatorViewModel)
+  }
+}
+
+// MARK: ColorWizardContentViewModel.Delegate
+extension ColorWizardCoordinatorViewModel: ColorWizardContentViewModel.Delegate {
   func colorWizardContentViewModel(_ source: ColorWizardContentViewModel, canMoveBackFromIndex index: Int) -> Bool {
     return index != 0
   }
@@ -73,6 +75,6 @@ extension ColorWizardCoordinator: ColorWizardContentViewModelDelegate {
   }
   
   func colorWizardContentViewModel(_ source: ColorWizardContentViewModel, didCompleteFromIndex index: Int) {
-    self.delegate?.colorWizardCoordinatorDidComplete(self)
+    self.delegate?.colorWizardCoordinatorViewModelDidComplete(self)
   }
 }

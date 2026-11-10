@@ -7,45 +7,29 @@
 
 import Foundation
 import Combine
-import SwiftUI
 
-protocol LandingViewModelDelegate: AnyObject {
-  func landingViewModelDidTapPulse(_ source: LandingViewModel)
-  func landingViewModelDidTapSignIn(_ source: LandingViewModel)
-  func landingViewModelDidTapInfiniteCards(_ source: LandingViewModel)
-  func landingViewModelDidTapColorWizard(_ source: LandingViewModel)
-}
-
-@Observable
-class LandingViewModel: ViewModel {
-  private let alertService: AlertServiceProtocol
-  private let authenticationService: AuthenticationServiceProtocol
-  private let colorService: ColorServiceProtocol
+@Observable @MainActor
+final class LandingViewModel: ViewModel {
+  @ObservationIgnored private let alertService: AlertServiceProtocol
+  @ObservationIgnored private let authenticationService: AuthenticationServiceProtocol
+  @ObservationIgnored private let colorService: ColorServiceProtocol
   
-  private weak var delegate: LandingViewModelDelegate?
+  @ObservationIgnored private weak var delegate: Delegate?
   
-  var isAuthenticated: AnyPublisher<Bool, Never> { self.authenticationService.isAuthenticated }
-  var username: AnyPublisher<String, Never> {
-    self.authenticationService.user.map { $0?.username ?? .empty }.eraseToAnyPublisher()
-  }
-  let pulseColor: AnyPublisher<ColorModel, Never>
+  private(set) var isAuthenticated: Bool = false
+  private(set) var username: String = .empty
+  private(set) var pulseColor: ColorModel?
   
-  let pulse: PassthroughSubject<Void, Never> = PassthroughSubject()
-  let signInOrOut: PassthroughSubject<Void, Never> = PassthroughSubject()
-  let infiniteCards: PassthroughSubject<Void, Never> = PassthroughSubject()
-  let colorWizard: PassthroughSubject<Void, Never> = PassthroughSubject()
-  
-  private var cancelBag: CancelBag!
+  @ObservationIgnored private var cancelBag: CancelBag = CancelBag()
   
   init(alertService: AlertServiceProtocol, authenticationService: AuthenticationServiceProtocol, colorService: ColorServiceProtocol) {
     self.alertService = alertService
     self.authenticationService = authenticationService
     self.colorService = colorService
-    
-    self.pulseColor = self.colorService.generateColors().share(replay: 1).eraseToAnyPublisher()
   }
   
-  func setup(delegate: LandingViewModelDelegate) -> Self {
+  @discardableResult
+  func setup(delegate: Delegate) -> Self {
     self.delegate = delegate
     bind()
     return self
@@ -54,53 +38,62 @@ class LandingViewModel: ViewModel {
   private func bind() {
     self.cancelBag = CancelBag()
     
-    let alertService = self.alertService
-    let authenticationService = self.authenticationService
-    
-    self.pulse
-      .sink(receiveValue: { [weak self] in
-        guard let self = self else { return }
-        self.delegate?.landingViewModelDidTapPulse(self)
-      })
-      .store(in: &self.cancelBag)
-    
-    self.signInOrOut
-      .withLatestFrom(self.isAuthenticated)
+    self.authenticationService.isAuthenticated
+      .receive(on: RunLoop.main)
       .sink { [weak self] isAuthenticated in
-        guard let self = self else { return }
-        if isAuthenticated {
-          alertService.present(
-            title: "Sign Out",
-            message: "Are you sure you want to sign out?",
-            primaryButton: .destructive("Yes, sign out") {
-              authenticationService.signOutAsync()
-            },
-            secondaryButton: .cancel())
-        } else {
-          self.delegate?.landingViewModelDidTapSignIn(self)
-        }
+        self?.isAuthenticated = isAuthenticated
       }
       .store(in: &self.cancelBag)
     
-    self.infiniteCards
-      .sink(receiveValue: { [weak self] in
-        guard let self = self else { return }
-        self.delegate?.landingViewModelDidTapInfiniteCards(self)
-      })
+    self.authenticationService.user
+      .map { $0?.username ?? .empty }
+      .receive(on: RunLoop.main)
+      .sink { [weak self] username in
+        self?.username = username
+      }
       .store(in: &self.cancelBag)
     
-    self.colorWizard
-      .sink(receiveValue: { [weak self] in
-        guard let self = self else { return }
-        self.delegate?.landingViewModelDidTapColorWizard(self)
-      })
+    self.colorService.generateColors()
+      .receive(on: RunLoop.main)
+      .sink { [weak self] color in
+        self?.pulseColor = color
+      }
       .store(in: &self.cancelBag)
+  }
+  
+  func pulse() {
+    self.delegate?.landingViewModelDidTapPulse(self)
+  }
+  
+  func signInOrOut() {
+    if self.isAuthenticated {
+      let authenticationService = self.authenticationService
+      self.alertService.present(
+        title: "Sign Out",
+        message: "Are you sure you want to sign out?",
+        primaryButton: .destructive("Yes, sign out") {
+          authenticationService.signOutAsync()
+        },
+        secondaryButton: .cancel())
+    } else {
+      self.delegate?.landingViewModelDidTapSignIn(self)
+    }
+  }
+  
+  func infiniteCards() {
+    self.delegate?.landingViewModelDidTapInfiniteCards(self)
+  }
+  
+  func colorWizard() {
+    self.delegate?.landingViewModelDidTapColorWizard(self)
   }
 }
 
 extension LandingViewModel {
-  enum AuthAction {
-    case signIn
-    case willSignOut
+  @MainActor protocol Delegate: AnyObject {
+    func landingViewModelDidTapPulse(_ source: LandingViewModel)
+    func landingViewModelDidTapSignIn(_ source: LandingViewModel)
+    func landingViewModelDidTapInfiniteCards(_ source: LandingViewModel)
+    func landingViewModelDidTapColorWizard(_ source: LandingViewModel)
   }
 }

@@ -25,6 +25,7 @@ extension View {
 }
 
 extension ViewModel {
+  @MainActor
   func endEditing() {
     UIApplication.shared.endEditing()
   }

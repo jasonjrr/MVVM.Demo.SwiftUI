@@ -1,17 +1,16 @@
 //
-//  ServiceAssembly.swift
+//  ServicesAssembly.swift
 //  MVVM.Demo.SwiftUI
 //
 //  Created by Jason Lew-Rapai on 11/15/21.
 //
 
-import Foundation
 import Swinject
 import BusyIndicator
 
-class ServiceAssembly: Assembly {
+final class ServicesAssembly: Assembly {
   func assemble(container: Container) {
-    container.register(AlertManager.self) { r in
+    container.registerMainActor(AlertManager.self) { _ in
       AlertManager()
     }.inObjectScope(.container)
     
@@ -24,14 +23,14 @@ class ServiceAssembly: Assembly {
         busyIndicatorService: r.resolved(BusyIndicatorServiceProtocol.self))
     }.inObjectScope(.container)
     
-    container.register(ColorServiceProtocol.self) { r in
+    container.register(ColorServiceProtocol.self) { _ in
       ColorService()
     }.inObjectScope(.container)
     
     assembleThirdParties(container: container)
   }
   
-  func assembleThirdParties(container: Container) {
+  private func assembleThirdParties(container: Container) {
     container.register(BusyIndicatorServiceProtocol.self) { _ in
       let config = BusyIndicatorConfiguration()
       config.showBusyIndicatorDelay = 0

@@ -11,7 +11,7 @@ import CombineExt
 import SwiftUI
 import BusyIndicator
 
-protocol AuthenticationServiceProtocol: AnyObject {
+protocol AuthenticationServiceProtocol: AnyObject, Sendable {
   var user: AnyPublisher<User?, Never> { get }
   var isAuthenticated: AnyPublisher<Bool, Never> { get }
   
@@ -20,7 +20,7 @@ protocol AuthenticationServiceProtocol: AnyObject {
   func signOutAsync()
 }
 
-class AuthenticationService: AuthenticationServiceProtocol {
+final class AuthenticationService: AuthenticationServiceProtocol, @unchecked Sendable {
   private let busyIndicatorService: BusyIndicatorServiceProtocol
   
   private let _user: CurrentValueSubject<User?, Never> = CurrentValueSubject(nil)
@@ -92,7 +92,7 @@ extension AuthenticationService {
   }
 }
 
-struct User: Equatable {
+struct User: Equatable, Sendable {
   let username: String
   let password: String
   
